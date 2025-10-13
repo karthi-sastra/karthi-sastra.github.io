@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Researcher | SASTRA University</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#10B981',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.9) 0%, rgba(16, 185, 129, 0.9) 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <div id="vanta-bg" class="fixed inset-0 z-0"></div>
+    <div class="relative z-10">
+        <!-- Navigation -->
+        <nav class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <span class="text-xl font-bold text-primary">Dr. Researcher</span>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="index.html" class="text-primary font-medium">Home</a>
+                        <a href="teaching.html" class="text-gray-600 hover:text-primary transition-all">Teaching</a>
+                        <a href="research.html" class="text-gray-600 hover:text-primary transition-all">Research</a>
+                        <a href="publications.html" class="text-gray-600 hover:text-primary transition-all">Publications</a>
+                        <a href="patents.html" class="text-gray-600 hover:text-primary transition-all">Patents</a>
+                        <a href="cv.html" class="text-gray-600 hover:text-primary transition-all">CV</a>
+                    </div>
+                    <div class="md:hidden flex items-center">
+                        <button id="menu-btn" class="text-gray-600">
+                            <i data-feather="menu"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white pb-3 px-4">
+                <a href="index.html" class="block py-2 text-primary font-medium">Home</a>
+                <a href="teaching.html" class="block py-2 text-gray-600 hover:text-primary transition-all">Teaching</a>
+                <a href="research.html" class="block py-2 text-gray-600 hover:text-primary transition-all">Research</a>
+                <a href="publications.html" class="block py-2 text-gray-600 hover:text-primary transition-all">Publications</a>
+                <a href="patents.html" class="block py-2 text-gray-600 hover:text-primary transition-all">Patents</a>
+                <a href="cv.html" class="block py-2 text-gray-600 hover:text-primary transition-all">CV</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-bg text-white pt-24 pb-16 md:pt-32 md:pb-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="md:flex items-center">
+                    <div class="md:w-1/2 mb-8 md:mb-0">
+                        <h1 class="text-4xl md:text-5xl font-bold mb-4">Dr. Researcher</h1>
+                        <h2 class="text-2xl md:text-3xl font-semibold mb-6">Assistant Professor & Researcher</h2>
+                        <p class="text-lg mb-8 opacity-90">Department of Advanced Sciences, SASTRA University</p>
+                        <div class="flex space-x-4">
+                            <a href="#contact" class="bg-white text-primary px-6 py-2 rounded-md font-medium hover:bg-gray-100 transition-all">Contact Me</a>
+                            <a href="cv.html" class="border-2 border-white text-white px-6 py-2 rounded-md font-medium hover:bg-white/10 transition-all">View CV</a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                            <img src="http://static.photos/technology/640x360/42" alt="Dr. Researcher" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">About Me</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto"></div>
+                </div>
+                <div class="md:flex">
+                    <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Academic Journey</h3>
+                        <p class="text-gray-600 mb-6">I am an Assistant Professor at SASTRA University with a passion for both teaching and cutting-edge research. My academic journey began at [University Name] where I completed my Ph.D. in [Field of Study].</p>
+                        <p class="text-gray-600">My research focuses on [Research Area], where I explore [Specific Topics]. I have published numerous papers in reputed journals and have been granted patents for my innovative work.</p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Research Interests</h3>
+                        <div class="flex flex-wrap gap-3 mb-6">
+                            <span class="bg-secondary/10 text-secondary px-4 py-1 rounded-full">Nanotechnology</span>
+                            <span class="bg-primary/10 text-primary px-4 py-1 rounded-full">Materials Science</span>
+                            <span class="bg-secondary/10 text-secondary px-4 py-1 rounded-full">Biomedical Engineering</span>
+                            <span class="bg-primary/10 text-primary px-4 py-1 rounded-full">Renewable Energy</span>
+                            <span class="bg-secondary/10 text-secondary px-4 py-1 rounded-full">Artificial Intelligence</span>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h4 class="text-lg font-medium text-gray-800 mb-3">Current Projects</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start">
+                                    <i data-feather="chevron-right" class="text-primary mr-2 mt-1"></i>
+                                    <span class="text-gray-600">Development of advanced nanomaterials for energy storage</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-feather="chevron-right" class="text-primary mr-2 mt-1"></i>
+                                    <span class="text-gray-600">AI-assisted medical diagnosis systems</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-feather="chevron-right" class="text-primary mr-2 mt-1"></i>
+                                    <span class="text-gray-600">Sustainable building materials from industrial waste</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Stats -->
+        <section class="py-12 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-center card-hover transition-all">
+                        <div class="text-4xl font-bold text-primary mb-2">10+</div>
+                        <div class="text-gray-600">Years Experience</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-center card-hover transition-all">
+                        <div class="text-4xl font-bold text-secondary mb-2">50+</div>
+                        <div class="text-gray-600">Publications</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-center card-hover transition-all">
+                        <div class="text-4xl font-bold text-primary mb-2">5</div>
+                        <div class="text-gray-600">Patents</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-center card-hover transition-all">
+                        <div class="text-4xl font-bold text-secondary mb-2">1000+</div>
+                        <div class="text-gray-600">Students Taught</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Get In Touch</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto"></div>
+                </div>
+                <div class="md:flex">
+                    <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i data-feather="mail" class="text-primary mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Email</h4>
+                                    <p class="text-gray-600">researcher@sastra.edu</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i data-feather="phone" class="text-primary mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Phone</h4>
+                                    <p class="text-gray-600">+91 9876543210</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i data-feather="map-pin" class="text-primary mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Address</h4>
+                                    <p class="text-gray-600">Department of Advanced Sciences<br>SASTRA University<br>Thanjavur, Tamil Nadu - 613401</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Connect With Me</h3>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-all">
+                                    <i data-feather="linkedin"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-all">
+                                    <i data-feather="twitter"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-all">
+                                    <i data-feather="github"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-all">
+                                    <i data-feather="researchgate"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <form class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                            </div>
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"></textarea>
+                            </div>
+                            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-md font-medium hover:bg-primary/90 transition-all">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="md:flex md:justify-between">
+                    <div class="mb-6 md:mb-0">
+                        <span class="text-xl font-bold">Dr. Researcher</span>
+                        <p class="mt-2 text-gray-400">Assistant Professor & Researcher<br>SASTRA University</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-8 md:grid-cols-3">
+                        <div>
+                            <h3 class="text-sm font-semibold uppercase tracking-wider mb-4">Quick Links</h3>
+                            <ul class="space-y-2">
+                                <li><a href="index.html" class="text-gray-400 hover:text-white transition-all">Home</a></li>
+                                <li><a href="research.html" class="text-gray-400 hover:text-white transition-all">Research</a></li>
+                                <li><a href="teaching.html" class="text-gray-400 hover:text-white transition-all">Teaching</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold uppercase tracking-wider mb-4">Resources</h3>
+                            <ul class="space-y-2">
+                                <li><a href="publications.html" class="text-gray-400 hover:text-white transition-all">Publications</a></li>
+                                <li><a href="patents.html" class="text-gray-400 hover:text-white transition-all">Patents</a></li>
+                                <li><a href="cv.html" class="text-gray-400 hover:text-white transition-all">CV</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold uppercase tracking-wider mb-4">Legal</h3>
+                            <ul class="space-y-2">
+                                <li><a href="#" class="text-gray-400 hover:text-white transition-all">Privacy Policy</a></li>
+                                <li><a href="#" class="text-gray-400 hover:text-white transition-all">Terms of Use</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm">© 2023 Dr. Researcher. All rights reserved.</p>
+                    <div class="mt-4 md:mt-0 flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white transition-all">
+                            <i data-feather="linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-all">
+                            <i data-feather="twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-all">
+                            <i data-feather="github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Vanta.js
+        VANTA.WAVES({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x4f46e5,
+            shininess: 35.00,
+            waveHeight: 15.00,
+            waveSpeed: 0.85,
+            zoom: 0.75
+        });
+
+        // Mobile menu toggle
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Feather icons
+        feather.replace();
+    </script>
+</body>
+</html>
