@@ -3,31 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Karthi Shanmugam | Academic Portfolio</title>
+    <title>Dr. Karthi Shanmugam | Computational Drug Discovery & Bioinformatics</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <style>
-        .vanta-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
+        .vanta-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         .gradient-text {
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        .card-hover {
-            transition: all 0.3s ease;
-        }
+        .card-hover { transition: all 0.3s ease; }
         .card-hover:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -35,7 +25,6 @@
     </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Vanta.js Background -->
     <div id="vanta-bg" class="vanta-bg"></div>
 
     <!-- Navigation -->
@@ -76,32 +65,34 @@
             <a href="cv.html" class="text-gray-600 hover:text-blue-600 py-2">CV</a>
         </div>
     </div>
+
     <!-- Hero Section -->
     <section class="relative pt-32 pb-40 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <!-- Animated particles background -->
         <div id="particles-js" class="absolute inset-0 z-0"></div>
-<div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
             <div>
                 <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                     Dr. <span class="gradient-text">Karthi Shanmugam</span>
                 </h1>
                 <h2 class="text-xl md:text-2xl text-gray-600 mb-6">
-                    Assistant Professor | Researcher | Educator
+                    Computational Drug Discovery | Bioinformatics | Cardioprotection
                 </h2>
                 <p class="text-gray-700 mb-8 text-lg leading-relaxed">
-                    Distinguished academic and researcher with expertise in artificial intelligence and machine learning applications. Committed to bridging theoretical computer science with real-world solutions in healthcare, education, and industry.
+                    Assistant Professor and Researcher specializing in computational drug design and mitochondrial cardioprotection.
+                    My interdisciplinary work integrates molecular modeling, systems pharmacology, and AI-driven analytics to accelerate
+                    natural product-based drug discovery for ischemia-reperfusion injury and cardiovascular diseases.
                 </p>
                 <div class="flex items-center space-x-4 mb-6">
                     <div class="flex items-center">
-                        <i data-feather="award" class="text-blue-600 mr-2"></i>
-                        <span class="text-gray-700">10+ Years Experience</span>
+                        <i data-feather="activity" class="text-blue-600 mr-2"></i>
+                        <span class="text-gray-700">10+ Years in Teaching & Research</span>
                     </div>
                     <div class="flex items-center">
-                        <i data-feather="book" class="text-blue-600 mr-2"></i>
-                        <span class="text-gray-700">25+ Publications</span>
+                        <i data-feather="book-open" class="text-blue-600 mr-2"></i>
+                        <span class="text-gray-700">35+ Publications</span>
                     </div>
                 </div>
-<div class="flex space-x-4">
+                <div class="flex space-x-4">
                     <a href="#about" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
                         Explore My Work
                     </a>
@@ -115,17 +106,19 @@
                     <img src="http://static.photos/workspace/640x360/42" alt="Dr. Karthi Shanmugam" class="rounded-xl w-full h-auto">
                 </div>
                 <div class="absolute -bottom-4 -right-4 bg-blue-600 text-white p-4 rounded-xl shadow-lg">
-                    <i data-feather="award" class="w-8 h-8"></i>
+                    <i data-feather="heart" class="w-8 h-8"></i>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- About Section -->
     <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-<div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
             <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">About Me</h2>
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl border border-gray-200">
+                <!-- Academic Credentials -->
+                <div class="bg-white/90 p-6 rounded-xl border border-gray-200">
                     <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
                         <span class="bg-blue-100 p-2 rounded-lg mr-3">
                             <i data-feather="award" class="text-blue-600"></i>
@@ -134,30 +127,31 @@
                     </h3>
                     <ul class="space-y-4">
                         <li class="flex items-start">
-                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">PhD</span>
+                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">Ph.D.</span>
                             <div>
-                                <h4 class="font-medium text-gray-800">Computer Science</h4>
-                                <p class="text-gray-600 text-sm">IIT Madras, 2022</p>
+                                <h4 class="font-medium text-gray-800">Drug Discovery for Myocardial I/R Injury</h4>
+                                <p class="text-gray-600 text-sm">SASTRA Deemed University, 2025</p>
                             </div>
                         </li>
                         <li class="flex items-start">
                             <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">M.Tech</span>
                             <div>
-                                <h4 class="font-medium text-gray-800">Artificial Intelligence</h4>
-                                <p class="text-gray-600 text-sm">NIT Trichy, 2018</p>
+                                <h4 class="font-medium text-gray-800">Bioinformatics</h4>
+                                <p class="text-gray-600 text-sm">SASTRA Deemed University, 2014</p>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">B.E.</span>
+                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">B.Tech</span>
                             <div>
-                                <h4 class="font-medium text-gray-800">Computer Science</h4>
-                                <p class="text-gray-600 text-sm">Anna University, 2016</p>
+                                <h4 class="font-medium text-gray-800">Biotechnology</h4>
+                                <p class="text-gray-600 text-sm">SASTRA Deemed University, 2012</p>
                             </div>
                         </li>
                     </ul>
                 </div>
 
-                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl border border-gray-200">
+                <!-- Research Metrics -->
+                <div class="bg-white/90 p-6 rounded-xl border border-gray-200">
                     <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
                         <span class="bg-blue-100 p-2 rounded-lg mr-3">
                             <i data-feather="bar-chart-2" class="text-blue-600"></i>
@@ -166,25 +160,26 @@
                     </h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <div class="text-2xl font-bold text-blue-600">1,200+</div>
+                            <div class="text-2xl font-bold text-blue-600">800+</div>
                             <div class="text-xs text-gray-600">Citations</div>
                         </div>
                         <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <div class="text-2xl font-bold text-blue-600">18</div>
+                            <div class="text-2xl font-bold text-blue-600">15</div>
                             <div class="text-xs text-gray-600">h-index</div>
                         </div>
                         <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <div class="text-2xl font-bold text-blue-600">25+</div>
+                            <div class="text-2xl font-bold text-blue-600">35+</div>
                             <div class="text-xs text-gray-600">Publications</div>
                         </div>
                         <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <div class="text-2xl font-bold text-blue-600">5</div>
-                            <div class="text-xs text-gray-600">Patents</div>
+                            <div class="text-2xl font-bold text-blue-600">3</div>
+                            <div class="text-xs text-gray-600">Patents Filed</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl border border-gray-200">
+                <!-- Technical Expertise -->
+                <div class="bg-white/90 p-6 rounded-xl border border-gray-200">
                     <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
                         <span class="bg-blue-100 p-2 rounded-lg mr-3">
                             <i data-feather="cpu" class="text-blue-600"></i>
@@ -192,87 +187,45 @@
                         Technical Expertise
                     </h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Deep Learning</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Computer Vision</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Natural Language Processing</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Federated Learning</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Explainable AI</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Cloud Computing</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Big Data Analytics</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Molecular Docking</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Molecular Dynamics</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">ADMET & QSAR Modeling</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Pharmacophore Modeling</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">DFT Calculations</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Network Pharmacology</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Machine Learning in Drug Discovery</span>
                     </div>
                 </div>
-</div>
+            </div>
         </div>
     </section>
+
     <!-- Research Impact Section -->
     <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl">
-        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Transformative Research Impact</h2>
+        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Translational Research Impact</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 card-hover border border-gray-200">
-                <div class="text-blue-600 mb-3">
-                    <i data-feather="activity" class="w-8 h-8"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Healthcare AI</h3>
-                <p class="text-gray-600 text-sm">Developed diagnostic systems adopted by 3 major hospitals</p>
+            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200">
+                <div class="text-blue-600 mb-3"><i data-feather="heart" class="w-8 h-8"></i></div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Cardioprotection</h3>
+                <p class="text-gray-600 text-sm">Discovered polyphenol-based cardioprotectants targeting GSK3β to mitigate ischemia–reperfusion injury.</p>
             </div>
-            <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 card-hover border border-gray-200">
-                <div class="text-blue-600 mb-3">
-                    <i data-feather="book-open" class="w-8 h-8"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">EdTech Innovations</h3>
-                <p class="text-gray-600 text-sm">Pioneered adaptive learning used by 10,000+ students</p>
+            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200">
+                <div class="text-blue-600 mb-3"><i data-feather="cpu" class="w-8 h-8"></i></div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Computational Drug Design</h3>
+                <p class="text-gray-600 text-sm">Developed integrated in silico workflows combining docking, MD, and ADMET predictions for precision pharmacology.</p>
             </div>
-            <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 card-hover border border-gray-200">
-                <div class="text-blue-600 mb-3">
-                    <i data-feather="cpu" class="w-8 h-8"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Industry Collaborations</h3>
-                <p class="text-gray-600 text-sm">5+ tech transfer projects with leading companies</p>
+            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200">
+                <div class="text-blue-600 mb-3"><i data-feather="activity" class="w-8 h-8"></i></div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Mitochondrial Biology</h3>
+                <p class="text-gray-600 text-sm">Elucidated mitochondrial mechanisms underlying redox balance, bioenergetics, and cellular resilience in cardiac tissue.</p>
             </div>
-            <div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6 card-hover border border-gray-200">
-                <div class="text-blue-600 mb-3">
-                    <i data-feather="globe" class="w-8 h-8"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Global Recognition</h3>
-                <p class="text-gray-600 text-sm">Keynote speaker at 8 international conferences</p>
+            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200">
+                <div class="text-blue-600 mb-3"><i data-feather="globe" class="w-8 h-8"></i></div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Collaborative Science</h3>
+                <p class="text-gray-600 text-sm">Fosters interdisciplinary collaborations across computational biology, pharmacology, and translational medicine.</p>
             </div>
         </div>
-</section>
-    <!-- Media Section -->
-    <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <span class="inline-block px-3 py-1 text-xs font-semibold text-blue-600 bg-blue-100 rounded-full mb-4">MEDIA & OUTREACH</span>
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">Featured In</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">My research has been recognized by leading academic and industry publications</p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover h-64">
-                <img src="http://static.photos/technology/1024x576/5" alt="Tech Review" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-                    <span class="text-sm text-blue-300 mb-2">IEEE Spectrum</span>
-                    <h3 class="text-xl font-bold text-white mb-2">Pioneering AI in Healthcare</h3>
-                    <p class="text-gray-300 text-sm">Featured in the annual review of emerging technologies</p>
-                </div>
-            </div>
-            <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover h-64">
-                <img src="http://static.photos/education/1024x576/3" alt="Education Feature" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-                    <span class="text-sm text-blue-300 mb-2">EdTech Magazine</span>
-                    <h3 class="text-xl font-bold text-white mb-2">Revolutionizing Learning with AI</h3>
-                    <p class="text-gray-300 text-sm">Cover story on adaptive learning technologies</p>
-                </div>
-            </div>
-            <div class="group relative overflow-hidden rounded-xl shadow-lg card-hover h-64">
-                <img src="http://static.photos/science/1024x576/9" alt="Research Feature" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-                    <span class="text-sm text-blue-300 mb-2">Nature Research</span>
-                    <h3 class="text-xl font-bold text-white mb-2">The Future of Explainable AI</h3>
-                    <p class="text-gray-300 text-sm">Interview on making AI systems more transparent</p>
-                </div>
-            </div>
-        </div>
-</section>
+    </section>
 
     <!-- Contact Section -->
     <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -282,106 +235,18 @@
                     <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
                     <p class="opacity-90 mb-6">Interested in collaboration or have questions about my research? Feel free to reach out.</p>
                     <div class="space-y-4">
-                        <div class="flex items-center">
-                            <i data-feather="mail" class="mr-4"></i>
-                            <span>karthi.shanmugam@sastra.edu</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i data-feather="map-pin" class="mr-4"></i>
-                            <span>SASTRA University, Thanjavur, Tamil Nadu, India</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i data-feather="phone" class="mr-4"></i>
-                            <span>+91 (XXX) XXX-XXXX</span>
-                        </div>
+                        <div class="flex items-center"><i data-feather="mail" class="mr-4"></i><span>karthi.shanmugam@sastra.edu</span></div>
+                        <div class="flex items-center"><i data-feather="map-pin" class="mr-4"></i><span>SASTRA Deemed University, Thanjavur, India</span></div>
+                        <div class="flex items-center"><i data-feather="phone" class="mr-4"></i><span>+91 9489XXXXXX</span></div>
                     </div>
                 </div>
                 <div>
                     <form class="space-y-4">
-                        <div>
-                            <label for="name" class="block text-sm font-medium opacity-90 mb-1">Name</label>
-                            <input type="text" id="name" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Your Name">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium opacity-90 mb-1">Email</label>
-                            <input type="email" id="email" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="your.email@example.com">
-                        </div>
-                        <div>
-                            <label for="message" class="block text-sm font-medium opacity-90 mb-1">Message</label>
-                            <textarea id="message" rows="3" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Your message here..."></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-white text-blue-600 hover:bg-gray-100 font-medium py-2 px-4 rounded-lg transition duration-300">
-                            Send Message
-                        </button>
+                        <div><label for="name" class="block text-sm font-medium opacity-90 mb-1">Name</label><input type="text" id="name" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Your Name"></div>
+                        <div><label for="email" class="block text-sm font-medium opacity-90 mb-1">Email</label><input type="email" id="email" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="your.email@example.com"></div>
+                        <div><label for="message" class="block text-sm font-medium opacity-90 mb-1">Message</label><textarea id="message" rows="3" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Your message here..."></textarea></div>
+                        <button type="submit" class="w-full bg-white text-blue-600 hover:bg-gray-100 font-medium py-2 px-4 rounded-lg transition duration-300">Send Message</button>
                     </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Testimonials Section -->
-    <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gray-900 text-white rounded-3xl">
-        <div class="text-center mb-16">
-            <span class="inline-block px-3 py-1 text-xs font-semibold text-blue-300 bg-blue-900/30 rounded-full mb-4">ENDORSEMENTS</span>
-            <h2 class="text-3xl font-bold text-white mb-4">Colleague Testimonials</h2>
-            <p class="text-gray-400 max-w-2xl mx-auto">What peers and collaborators say about my work</p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700">
-                <div class="flex items-center mb-4">
-                    <img src="http://static.photos/people/200x200/10" alt="Dr. Rajesh Kumar" class="w-12 h-12 rounded-full mr-4">
-                    <div>
-                        <h4 class="font-medium text-white">Dr. Rajesh Kumar</h4>
-                        <p class="text-sm text-blue-300">Professor, IIT Madras</p>
-                    </div>
-                </div>
-                <p class="text-gray-300 italic mb-4">
-                    "Dr. Shanmugam's work on explainable AI has set new standards in the field. His interdisciplinary approach bridges the gap between theory and practical applications."
-                </p>
-                <div class="flex items-center text-yellow-400">
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                </div>
-            </div>
-            <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700">
-                <div class="flex items-center mb-4">
-                    <img src="http://static.photos/people/200x200/11" alt="Dr. Meera Patel" class="w-12 h-12 rounded-full mr-4">
-                    <div>
-                        <h4 class="font-medium text-white">Dr. Meera Patel</h4>
-                        <p class="text-sm text-blue-300">Dean, SASTRA University</p>
-                    </div>
-                </div>
-                <p class="text-gray-300 italic mb-4">
-                    "Dr. Shanmugam brings exceptional innovation to both research and teaching. His ability to translate complex AI concepts into practical solutions is remarkable."
-                </p>
-                <div class="flex items-center text-yellow-400">
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                </div>
-            </div>
-            <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700">
-                <div class="flex items-center mb-4">
-                    <img src="http://static.photos/people/200x200/12" alt="Dr. Ananya Gupta" class="w-12 h-12 rounded-full mr-4">
-                    <div>
-                        <h4 class="font-medium text-white">Dr. Ananya Gupta</h4>
-                        <p class="text-sm text-blue-300">Research Director, Microsoft India</p>
-                    </div>
-                </div>
-                <p class="text-gray-300 italic mb-4">
-                    "Our collaboration with Dr. Shanmugam on federated learning has produced groundbreaking results. His technical depth and vision are truly impressive."
-                </p>
-                <div class="flex items-center text-yellow-400">
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
-                    <i data-feather="star" class="w-4 h-4 fill-current"></i>
                 </div>
             </div>
         </div>
@@ -389,11 +254,11 @@
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
-<div class="max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Dr. Karthi Shanmugam</h3>
-                    <p class="text-gray-400">Assistant Professor at SASTRA University, dedicated to advancing knowledge through research and education.</p>
+                    <p class="text-gray-400">Assistant Professor at SASTRA Deemed University, advancing computational drug discovery and cardioprotection through integrative research and teaching.</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
@@ -407,94 +272,50 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Contact</h3>
                     <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center">
-                            <i data-feather="mail" class="mr-2 w-4 h-4"></i>
-                            karthi.shanmugam@sastra.edu
-                        </li>
-                        <li class="flex items-center">
-                            <i data-feather="map-pin" class="mr-2 w-4 h-4"></i>
-                            SASTRA University
-                        </li>
+                        <li class="flex items-center"><i data-feather="mail" class="mr-2 w-4 h-4"></i>karthi.shanmugam@sastra.edu</li>
+                        <li class="flex items-center"><i data-feather="map-pin" class="mr-2 w-4 h-4"></i>SASTRA Deemed University</li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Connect</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition">
-                            <i data-feather="linkedin"></i>
-                        </a>
-                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition">
-                            <i data-feather="twitter"></i>
-                        </a>
-                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition">
-                            <i data-feather="github"></i>
-                        </a>
-                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition">
-                            <i data-feather="researchgate"></i>
-                        </a>
+                        <a href="https://www.linkedin.com/in/kshanmugam-phd/" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition"><i data-feather="linkedin"></i></a>
+                        <a href="https://twitter.com/karthibioinfo" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition"><i data-feather="twitter"></i></a>
+                        <a href="https://github.com/primalbioinformatics" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition"><i data-feather="github"></i></a>
+                        <a href="https://www.researchgate.net/profile/Karthi-Shanmugam" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition"><i data-feather="book"></i></a>
                     </div>
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-                <p>&copy; 2023 Dr. Karthi Shanmugam. All rights reserved.</p>
+                <p>&copy; 2025 Dr. Karthi Shanmugam. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Initialize particles.js
         document.addEventListener('DOMContentLoaded', function() {
             particlesJS('particles-js', {
-                particles: {
-                    number: { value: 80, density: { enable: true, value_area: 800 } },
-                    color: { value: "#3b82f6" },
-                    shape: { type: "circle" },
-                    opacity: { value: 0.5, random: true },
-                    size: { value: 3, random: true },
-                    line_linked: { enable: true, distance: 150, color: "#3b82f6", opacity: 0.4, width: 1 },
-                    move: { enable: true, speed: 3, direction: "none", random: true, straight: false, out_mode: "out" }
-                },
-                interactivity: {
-                    detect_on: "canvas",
-                    events: {
-                        onhover: { enable: true, mode: "repulse" },
-                        onclick: { enable: true, mode: "push" }
-                    }
-                }
+                particles: { number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#3b82f6" }, shape: { type: "circle" }, opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#3b82f6", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 3, random: true, out_mode: "out" } },
+                interactivity: { events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } } }
             });
         });
-// Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            const menu = document.getElementById('mobile-menu'); menu.classList.toggle('hidden');
         });
-
-        // Close mobile menu when clicking on a link
         document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('mobile-menu').classList.add('hidden');
-            });
+            link.addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden'));
         });
-
-        // Animation for cards on scroll
         const cards = document.querySelectorAll('.card-hover');
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; } });
         }, { threshold: 0.1 });
-
-        cards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            observer.observe(card);
-        });
-
-        // Initialize feather icons
+        cards.forEach(card => { card.style.opacity = '0'; card.style.transform = 'translateY(20px)'; card.style.transition = 'opacity 0.5s ease, transform 0.5s ease'; observer.observe(card); });
         feather.replace();
     </script>
 </body>
