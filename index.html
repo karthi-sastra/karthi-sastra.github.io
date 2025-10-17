@@ -7,111 +7,399 @@
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <style>
-        .vanta-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #3b82f6;
+            --secondary: #8b5cf6;
+            --accent: #06d6a0;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .vanta-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        
         .gradient-text {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+        
+        .gradient-text::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+        
+        .gradient-text:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translate(0, 0px) rotate(0deg); }
+            50% { transform: translate(0, 15px) rotate(2deg); }
+            100% { transform: translate(0, 0px) rotate(0deg); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .card-3d {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.5s ease;
+        }
+        
+        .card-3d:hover {
+            transform: rotateY(5deg) rotateX(5deg) translateY(-10px);
+        }
+        
+        .molecule-animation {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .molecule-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.05) 50%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-link:hover::before {
+            transform: translateX(0);
+        }
+        
+        .publication-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .publication-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .publication-card:hover::before {
+            left: 100%;
+        }
+        
+        .patent-badge {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .patent-badge::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(59, 130, 246, 0.3), transparent 30%);
+            animation: rotate 3s linear infinite;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid var(--primary);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary) }
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .research-highlight {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .research-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(139, 92, 246, 0.6));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+        
+        .research-highlight:hover::before {
+            opacity: 1;
+        }
+        
+        .research-content {
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s ease;
+        }
+        
+        .research-highlight:hover .research-content {
+            transform: translateY(-10px);
+        }
+        
+        .flip-card {
+            perspective: 1000px;
+            height: 300px;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .flip-card-back {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: rotateY(180deg);
+        }
+        
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        
+        .morphing-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
         }
-        .fade-in {
+        
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            animation: morph 10s infinite ease-in-out;
+        }
+        
+        @keyframes morph {
+            0%, 100% { border-radius: 50%; transform: scale(1) rotate(0deg); }
+            25% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; transform: scale(1.2) rotate(90deg); }
+            50% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: scale(1.1) rotate(180deg); }
+            75% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: scale(1.3) rotate(270deg); }
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.3);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+        
+        .glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .glow:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+        }
+        
+        .stagger-animation > * {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
         }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .section-padding {
-            padding-top: 5rem;
-            padding-bottom: 5rem;
-        }
-        .active-nav {
-            color: #3b82f6;
-            font-weight: 600;
-        }
-        .publication-item {
-            border-left: 3px solid #3b82f6;
-            transition: all 0.3s ease;
-        }
-        .publication-item:hover {
-            border-left-width: 6px;
-            background-color: #f8fafc;
-        }
-        .patent-card {
-            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-            transition: all 0.3s ease;
-        }
-        .patent-card:hover {
-            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-        }
-        .course-card {
-            background: white;
-            border-radius: 12px;
+        
+        .text-reveal {
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
         }
-        .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .cv-section {
-            margin-bottom: 2.5rem;
-        }
-        .cv-item {
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-            border-left: 2px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-        .cv-item:hover {
-            border-left-color: #3b82f6;
-            background-color: #f8fafc;
-            padding-left: 2rem;
-        }
-        .floating { 
-            animation: floating 3s ease-in-out infinite;
-        }
-        @keyframes floating {
-            0% { transform: translate(0, 0px); }
-            50% { transform: translate(0, 10px); }
-            100% { transform: translate(0, -0px); }
+        
+        .text-reveal span {
+            display: inline-block;
+            transform: translateY(100%);
+            opacity: 0;
         }
     </style>
 </head>
-<body class="bg-gray-50 font-sans">
+<body>
+    <!-- Animated Background -->
     <div id="vanta-bg" class="vanta-bg"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particles-container"></div>
+    
+    <!-- Morphing Shapes -->
+    <div class="morphing-shapes">
+        <div class="shape" style="width: 200px; height: 200px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="shape" style="width: 150px; height: 150px; top: 70%; left: 80%; animation-delay: 2s;"></div>
+        <div class="shape" style="width: 100px; height: 100px; top: 20%; left: 85%; animation-delay: 4s;"></div>
+        <div class="shape" style="width: 180px; height: 180px; top: 60%; left: 10%; animation-delay: 6s;"></div>
+    </div>
 
     <!-- Navigation -->
-    <nav class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full z-10">
+    <nav class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <a href="#" class="text-xl font-bold text-gray-800 flex items-center">
-                        <i data-feather="book-open" class="mr-2"></i>
-                        Prof. [Your Name]
+                        <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-lg mr-3">
+                            <i data-feather="atom" class="text-white"></i>
+                        </div>
+                        Prof. <span class="gradient-text">[Your Name]</span>
                     </a>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="active-nav">Home</a>
-                    <a href="#about" class="text-gray-600 hover:text-blue-600 transition duration-300">About</a>
-                    <a href="#research" class="text-gray-600 hover:text-blue-600 transition duration-300">Research</a>
-                    <a href="#publications" class="text-gray-600 hover:text-blue-600 transition duration-300">Publications</a>
-                    <a href="#patents" class="text-gray-600 hover:text-blue-600 transition duration-300">Patents</a>
-                    <a href="#teaching" class="text-gray-600 hover:text-blue-600 transition duration-300">Teaching</a>
-                    <a href="#cv" class="text-gray-600 hover:text-blue-600 transition duration-300">CV</a>
-                    <a href="#contact" class="text-gray-600 hover:text-blue-600 transition duration-300">Contact</a>
+                    <a href="#home" class="nav-link text-blue-600 font-medium">Home</a>
+                    <a href="#about" class="nav-link text-gray-600 hover:text-blue-600 transition duration-300">About</a>
+                    <a href="#research" class="nav-link text-gray-600 hover:text-blue-600 transition duration-300">Research</a>
+                    <a href="#publications" class="nav-link text-gray-600 hover:text-blue-600 transition duration-300">Publications</a>
+                    <a href="#patents" class="nav-link text-gray-600 hover:text-blue-600 transition duration-300">Patents</a>
+                    <a href="#teaching" class="nav-link text-gray-600 hover:text-blue-600 transition duration-300">Teaching</a>
+                    <a href="#cv" class="nav-link text-gray-600 hover:text-blue-600 transition duration-300">CV</a>
+                    <a href="#contact" class="nav-link text-gray-600 hover:text-blue-600 transition duration-300">Contact</a>
                 </div>
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-button" class="text-gray-600">
@@ -123,7 +411,7 @@
     </nav>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white z-20 pt-20 px-4">
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white z-50 pt-20 px-4">
         <div class="flex flex-col space-y-4">
             <a href="#home" class="text-blue-600 font-medium py-2 border-b border-gray-100">Home</a>
             <a href="#about" class="text-gray-600 hover:text-blue-600 py-2 border-b border-gray-100">About</a>
@@ -137,21 +425,22 @@
     </div>
 
     <!-- Hero Section -->
-    <section id="home" class="relative pt-32 pb-40 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="fade-in">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+    <section id="home" class="min-h-screen flex items-center justify-center relative pt-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="molecule-animation p-6 rounded-2xl">
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4 typewriter">
                     Prof. <span class="gradient-text">[Your Name]</span>
                 </h1>
-                <h2 class="text-xl md:text-2xl text-gray-600 mb-6">
-                    Computational Drug Design | Medicinal Chemistry | Cardiovascular & Antimicrobial Research
+                <h2 class="text-xl md:text-2xl text-gray-600 mb-6 text-reveal">
+                    <span>Computational Drug Design | Medicinal Chemistry |</span>
+                    <span>Cardiovascular & Antimicrobial Research</span>
                 </h2>
-                <p class="text-gray-700 mb-8 text-lg leading-relaxed">
-                    Professor and Researcher specializing in computational drug design and medicinal chemistry. 
-                    My research focuses on developing novel therapeutic agents for cardiovascular diseases and 
-                    antimicrobial resistance using cutting-edge computational approaches and molecular modeling.
+                <p class="text-gray-700 mb-8 text-lg leading-relaxed stagger-animation">
+                    <span>Professor and Researcher specializing in computational drug design and medicinal chemistry.</span>
+                    <span>My research focuses on developing novel therapeutic agents for cardiovascular diseases and</span>
+                    <span>antimicrobial resistance using cutting-edge computational approaches and molecular modeling.</span>
                 </p>
-                <div class="flex items-center space-x-4 mb-6">
+                <div class="flex items-center space-x-4 mb-6 stagger-animation">
                     <div class="flex items-center">
                         <i data-feather="activity" class="text-blue-600 mr-2"></i>
                         <span class="text-gray-700">15+ Years in Teaching & Research</span>
@@ -161,8 +450,8 @@
                         <span class="text-gray-700">40+ Publications</span>
                     </div>
                 </div>
-                <div class="flex space-x-4">
-                    <a href="#research" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
+                <div class="flex space-x-4 stagger-animation">
+                    <a href="#research" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 glow pulse">
                         Explore My Research
                     </a>
                     <a href="#contact" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium transition duration-300">
@@ -170,407 +459,207 @@
                     </a>
                 </div>
             </div>
-            <div class="relative fade-in">
-                <div class="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-1 inline-block floating">
+            <div class="relative">
+                <div class="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-1 inline-block floating card-3d">
                     <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Professor Portrait" class="rounded-xl w-full h-auto">
                 </div>
-                <div class="absolute -bottom-4 -right-4 bg-blue-600 text-white p-4 rounded-xl shadow-lg">
+                <div class="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-xl shadow-lg glow">
                     <i data-feather="award" class="w-8 h-8"></i>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 fade-in">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">About Me</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Academic Credentials -->
-                <div class="bg-white/90 p-6 rounded-xl border border-gray-200 card-hover">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                        <span class="bg-blue-100 p-2 rounded-lg mr-3">
-                            <i data-feather="award" class="text-blue-600"></i>
-                        </span>
-                        Academic Credentials
-                    </h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start">
-                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">Ph.D.</span>
-                            <div>
-                                <h4 class="font-medium text-gray-800">Medicinal Chemistry & Drug Design</h4>
-                                <p class="text-gray-600 text-sm">University Name, Year</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">M.S.</span>
-                            <div>
-                                <h4 class="font-medium text-gray-800">Pharmaceutical Sciences</h4>
-                                <p class="text-gray-600 text-sm">University Name, Year</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">B.Pharm</span>
-                            <div>
-                                <h4 class="font-medium text-gray-800">Pharmacy</h4>
-                                <p class="text-gray-600 text-sm">University Name, Year</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Research Metrics -->
-                <div class="bg-white/90 p-6 rounded-xl border border-gray-200 card-hover">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                        <span class="bg-blue-100 p-2 rounded-lg mr-3">
-                            <i data-feather="bar-chart-2" class="text-blue-600"></i>
-                        </span>
-                        Research Metrics
-                    </h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <div class="text-2xl font-bold text-blue-600">1000+</div>
-                            <div class="text-xs text-gray-600">Citations</div>
-                        </div>
-                        <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <div class="text-2xl font-bold text-blue-600">18</div>
-                            <div class="text-xs text-gray-600">h-index</div>
-                        </div>
-                        <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <div class="text-2xl font-bold text-blue-600">40+</div>
-                            <div class="text-xs text-gray-600">Publications</div>
-                        </div>
-                        <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <div class="text-2xl font-bold text-blue-600">5</div>
-                            <div class="text-xs text-gray-600">Patents Filed</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Technical Expertise -->
-                <div class="bg-white/90 p-6 rounded-xl border border-gray-200 card-hover">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                        <span class="bg-blue-100 p-2 rounded-lg mr-3">
-                            <i data-feather="cpu" class="text-blue-600"></i>
-                        </span>
-                        Technical Expertise
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Molecular Docking</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Molecular Dynamics</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">QSAR Modeling</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Pharmacophore Modeling</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Cheminformatics</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Drug Informatics</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Immunoinformatics</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Research Section -->
-    <section id="research" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl">
-        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center fade-in">Research Focus Areas</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200 fade-in">
-                <div class="text-blue-600 mb-3"><i data-feather="heart" class="w-8 h-8"></i></div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Cardiovascular Drug Design</h3>
-                <p class="text-gray-600 text-sm">Developing novel therapeutic agents for cardiovascular diseases using computational approaches and molecular modeling techniques.</p>
-            </div>
-            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200 fade-in">
-                <div class="text-blue-600 mb-3"><i data-feather="shield" class="w-8 h-8"></i></div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Antimicrobial Agents</h3>
-                <p class="text-gray-600 text-sm">Designing new antibiotics and antifungal agents to combat drug-resistant pathogens through structure-based drug design.</p>
-            </div>
-            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200 fade-in">
-                <div class="text-blue-600 mb-3"><i data-feather="cpu" class="w-8 h-8"></i></div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Computational Drug Design</h3>
-                <p class="text-gray-600 text-sm">Utilizing molecular docking, virtual screening, and molecular dynamics simulations to identify and optimize novel drug candidates.</p>
-            </div>
-            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200 fade-in">
-                <div class="text-blue-600 mb-3"><i data-feather="activity" class="w-8 h-8"></i></div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Medicinal Chemistry</h3>
-                <p class="text-gray-600 text-sm">Synthesis and optimization of lead compounds with enhanced pharmacological properties and reduced toxicity.</p>
-            </div>
-            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200 fade-in">
-                <div class="text-blue-600 mb-3"><i data-feather="database" class="w-8 h-8"></i></div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Drug Informatics</h3>
-                <p class="text-gray-600 text-sm">Application of computational methods, cheminformatics, and bioinformatics in pharmaceutical research and development.</p>
-            </div>
-            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200 fade-in">
-                <div class="text-blue-600 mb-3"><i data-feather="globe" class="w-8 h-8"></i></div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Immunoinformatics</h3>
-                <p class="text-gray-600 text-sm">Computational approaches to study immune system responses and design immunotherapeutics and vaccines.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Publications Section -->
-    <section id="publications" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center fade-in">Selected Publications</h2>
-        <div class="space-y-6">
-            <div class="publication-item bg-white p-6 rounded-lg shadow-sm fade-in">
-                <div class="publication-title text-lg font-semibold text-gray-800 mb-2">Novel computational approach for identifying potential cardiovascular therapeutics targeting ACE2 receptors</div>
-                <div class="publication-authors text-gray-600 mb-2">Your Name, Co-author A, Co-author B</div>
-                <div class="publication-journal text-gray-500 italic mb-3">Journal of Medicinal Chemistry, 2023, 66(5), 3210-3225</div>
-                <div class="publication-links flex space-x-4">
-                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
-                        <i data-feather="external-link" class="w-4 h-4 mr-1"></i> DOI
-                    </a>
-                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
-                        <i data-feather="file-text" class="w-4 h-4 mr-1"></i> PDF
-                    </a>
-                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
-                        <i data-feather="quote" class="w-4 h-4 mr-1"></i> Cite
-                    </a>
-                </div>
-            </div>
-            
-            <div class="publication-item bg-white p-6 rounded-lg shadow-sm fade-in">
-                <div class="publication-title text-lg font-semibold text-gray-800 mb-2">Structure-based design of antimicrobial peptides with enhanced stability and specificity</div>
-                <div class="publication-authors text-gray-600 mb-2">Your Name, Co-author C, Co-author D</div>
-                <div class="publication-journal text-gray-500 italic mb-3">Bioorganic & Medicinal Chemistry, 2022, 30(15), 115-128</div>
-                <div class="publication-links flex space-x-4">
-                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
-                        <i data-feather="external-link" class="w-4 h-4 mr-1"></i> DOI
-                    </a>
-                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
-                        <i data-feather="file-text" class="w-4 h-4 mr-1"></i> PDF
-                    </a>
-                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
-                        <i data-feather="quote" class="w-4 h-4 mr-1"></i> Cite
-                    </a>
-                </div>
-            </div>
-            
-            <div class="publication-item bg-white p-6 rounded-lg shadow-sm fade-in">
-                <div class="publication-title text-lg font-semibold text-gray-800 mb-2">Machine learning approaches for predicting drug-target interactions in cardiovascular diseases</div>
-                <div class="publication-authors text-gray-600 mb-2">Your Name, Co-author E, Co-author F</div>
-                <div class="publication-journal text-gray-500 italic mb-3">Journal of Chemical Information and Modeling, 2021, 61(8), 3985-3998</div>
-                <div class="publication-links flex space-x-4">
-                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
-                        <i data-feather="external-link" class="w-4 h-4 mr-1"></i> DOI
-                    </a>
-                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
-                        <i data-feather="file-text" class="w-4 h-4 mr-1"></i> PDF
-                    </a>
-                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
-                        <i data-feather="quote" class="w-4 h-4 mr-1"></i> Cite
-                    </a>
+                <div class="absolute -top-4 -left-4 bg-gradient-to-r from-green-500 to-teal-500 text-white p-4 rounded-xl shadow-lg glow">
+                    <i data-feather="heart" class="w-8 h-8"></i>
                 </div>
             </div>
         </div>
         
-        <div class="text-center mt-8 fade-in">
-            <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 inline-flex items-center">
-                <i data-feather="list" class="mr-2"></i> View All Publications
-            </a>
-        </div>
-    </section>
-
-    <!-- Patents Section -->
-    <section id="patents" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl">
-        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center fade-in">Patents</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="patent-card rounded-xl shadow-lg p-6 card-hover fade-in">
-                <div class="patent-icon text-blue-600 mb-4 flex justify-center">
-                    <i data-feather="file-text" class="w-12 h-12"></i>
-                </div>
-                <div class="patent-title text-lg font-semibold text-gray-800 mb-2 text-center">Novel ACE2 Modulators for Treatment of Hypertension</div>
-                <div class="patent-number text-gray-600 text-sm mb-3 text-center">Indian Patent Application No: 202141012345</div>
-                <p class="text-gray-600 text-sm text-center">This patent application discloses novel small molecule modulators of ACE2 receptor with potential applications in hypertension treatment.</p>
-            </div>
-            
-            <div class="patent-card rounded-xl shadow-lg p-6 card-hover fade-in">
-                <div class="patent-icon text-blue-600 mb-4 flex justify-center">
-                    <i data-feather="file-text" class="w-12 h-12"></i>
-                </div>
-                <div class="patent-title text-lg font-semibold text-gray-800 mb-2 text-center">Antimicrobial Peptides with Enhanced Stability</div>
-                <div class="patent-number text-gray-600 text-sm mb-3 text-center">PCT Application No: PCT/IB2022/054321</div>
-                <p class="text-gray-600 text-sm text-center">International patent application covering novel antimicrobial peptides designed using computational approaches with improved stability profiles.</p>
-            </div>
-            
-            <div class="patent-card rounded-xl shadow-lg p-6 card-hover fade-in">
-                <div class="patent-icon text-blue-600 mb-4 flex justify-center">
-                    <i data-feather="file-text" class="w-12 h-12"></i>
-                </div>
-                <div class="patent-title text-lg font-semibold text-gray-800 mb-2 text-center">Computational Platform for Drug Repurposing in Cardiovascular Diseases</div>
-                <div class="patent-number text-gray-600 text-sm mb-3 text-center">Indian Patent Application No: 202241056789</div>
-                <p class="text-gray-600 text-sm text-center">This application describes a novel computational platform for identifying existing drugs with potential applications in cardiovascular diseases.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Teaching Section -->
-    <section id="teaching" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center fade-in">Teaching</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="course-card fade-in">
-                <div class="bg-blue-600 text-white p-4">
-                    <i data-feather="book-open" class="w-8 h-8"></i>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Drug Design</h3>
-                    <p class="text-gray-600 text-sm">Principles and applications of computer-aided drug design, molecular modeling, and structure-based drug discovery.</p>
-                </div>
-            </div>
-            
-            <div class="course-card fade-in">
-                <div class="bg-blue-600 text-white p-4">
-                    <i data-feather="flask" class="w-8 h-8"></i>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Medicinal Chemistry</h3>
-                    <p class="text-gray-600 text-sm">Study of drug discovery and development with emphasis on structure-activity relationships and drug optimization.</p>
-                </div>
-            </div>
-            
-            <div class="course-card fade-in">
-                <div class="bg-blue-600 text-white p-4">
-                    <i data-feather="cpu" class="w-8 h-8"></i>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Drug Informatics</h3>
-                    <p class="text-gray-600 text-sm">Application of computational methods, cheminformatics, and bioinformatics in pharmaceutical research.</p>
-                </div>
-            </div>
-            
-            <div class="course-card fade-in">
-                <div class="bg-blue-600 text-white p-4">
-                    <i data-feather="shield" class="w-8 h-8"></i>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Immunoinformatics</h3>
-                    <p class="text-gray-600 text-sm">Computational approaches to study immune system responses and design immunotherapeutics and vaccines.</p>
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+            <div class="flex flex-col items-center">
+                <span class="text-gray-600 mb-2">Scroll to explore</span>
+                <div class="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
+                    <div class="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-bounce"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CV Section -->
-    <section id="cv" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl">
-        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center fade-in">Curriculum Vitae</h2>
-        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 fade-in">
-            <div class="cv-section">
-                <h3 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
-                    <span class="bg-blue-100 p-2 rounded-lg mr-3">
-                        <i data-feather="award" class="text-blue-600"></i>
-                    </span>
-                    Education
-                </h3>
-                <div class="cv-item">
-                    <h4 class="text-lg font-medium text-gray-800">Ph.D. in Medicinal Chemistry</h4>
-                    <div class="text-gray-600 text-sm mb-1">University Name, City, Country</div>
-                    <div class="text-gray-500 text-xs">2005 - 2009</div>
+    <!-- Stats Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl mx-4 my-16">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center stagger-animation">
+                    <div class="counter" data-target="1000">0</div>
+                    <p class="text-gray-600 mt-2">Citations</p>
                 </div>
-                <div class="cv-item">
-                    <h4 class="text-lg font-medium text-gray-800">M.Sc. in Pharmaceutical Chemistry</h4>
-                    <div class="text-gray-600 text-sm mb-1">University Name, City, Country</div>
-                    <div class="text-gray-500 text-xs">2003 - 2005</div>
+                <div class="text-center stagger-animation">
+                    <div class="counter" data-target="40">0</div>
+                    <p class="text-gray-600 mt-2">Publications</p>
                 </div>
-                <div class="cv-item">
-                    <h4 class="text-lg font-medium text-gray-800">B.Pharm</h4>
-                    <div class="text-gray-600 text-sm mb-1">University Name, City, Country</div>
-                    <div class="text-gray-500 text-xs">1999 - 2003</div>
+                <div class="text-center stagger-animation">
+                    <div class="counter" data-target="18">0</div>
+                    <p class="text-gray-600 mt-2">h-index</p>
+                </div>
+                <div class="text-center stagger-animation">
+                    <div class="counter" data-target="5">0</div>
+                    <p class="text-gray-600 mt-2">Patents</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Highlights Section -->
+    <section id="research" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center section-title stagger-animation">Research Highlights</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="research-highlight bg-white rounded-2xl shadow-lg overflow-hidden card-3d stagger-animation">
+                <div class="h-48 bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                    <i data-feather="heart" class="text-white w-16 h-16"></i>
+                </div>
+                <div class="p-6 research-content">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Cardiovascular Drug Design</h3>
+                    <p class="text-gray-600">Developing novel therapeutic agents for cardiovascular diseases using computational approaches and molecular modeling techniques.</p>
                 </div>
             </div>
             
-            <div class="cv-section">
-                <h3 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
-                    <span class="bg-blue-100 p-2 rounded-lg mr-3">
-                        <i data-feather="briefcase" class="text-blue-600"></i>
-                    </span>
-                    Academic Positions
-                </h3>
-                <div class="cv-item">
-                    <h4 class="text-lg font-medium text-gray-800">Professor</h4>
-                    <div class="text-gray-600 text-sm mb-1">Department of Medicinal Chemistry, University Name</div>
-                    <div class="text-gray-500 text-xs">2018 - Present</div>
+            <div class="research-highlight bg-white rounded-2xl shadow-lg overflow-hidden card-3d stagger-animation">
+                <div class="h-48 bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
+                    <i data-feather="shield" class="text-white w-16 h-16"></i>
                 </div>
-                <div class="cv-item">
-                    <h4 class="text-lg font-medium text-gray-800">Associate Professor</h4>
-                    <div class="text-gray-600 text-sm mb-1">Department of Medicinal Chemistry, University Name</div>
-                    <div class="text-gray-500 text-xs">2012 - 2018</div>
-                </div>
-                <div class="cv-item">
-                    <h4 class="text-lg font-medium text-gray-800">Assistant Professor</h4>
-                    <div class="text-gray-600 text-sm mb-1">Department of Pharmaceutical Sciences, University Name</div>
-                    <div class="text-gray-500 text-xs">2009 - 2012</div>
+                <div class="p-6 research-content">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Antimicrobial Agents</h3>
+                    <p class="text-gray-600">Designing new antibiotics and antifungal agents to combat drug-resistant pathogens through structure-based drug design.</p>
                 </div>
             </div>
             
-            <div class="cv-section">
-                <h3 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
-                    <span class="bg-blue-100 p-2 rounded-lg mr-3">
-                        <i data-feather="star" class="text-blue-600"></i>
-                    </span>
-                    Awards & Honors
-                </h3>
-                <div class="cv-item">
-                    <h4 class="text-lg font-medium text-gray-800">Young Scientist Award</h4>
-                    <div class="text-gray-600 text-sm mb-1">Indian Council of Medical Research</div>
-                    <div class="text-gray-500 text-xs">2015</div>
+            <div class="research-highlight bg-white rounded-2xl shadow-lg overflow-hidden card-3d stagger-animation">
+                <div class="h-48 bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center">
+                    <i data-feather="cpu" class="text-white w-16 h-16"></i>
                 </div>
-                <div class="cv-item">
-                    <h4 class="text-lg font-medium text-gray-800">Best Researcher Award</h4>
-                    <div class="text-gray-600 text-sm mb-1">University Name</div>
-                    <div class="text-gray-500 text-xs">2018</div>
+                <div class="p-6 research-content">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Computational Drug Design</h3>
+                    <p class="text-gray-600">Utilizing molecular docking, virtual screening, and molecular dynamics simulations to identify and optimize novel drug candidates.</p>
                 </div>
-                <div class="cv-item">
-                    <h4 class="text-lg font-medium text-gray-800">Outstanding Teacher Award</h4>
-                    <div class="text-gray-600 text-sm mb-1">Department of Medicinal Chemistry</div>
-                    <div class="text-gray-500 text-xs">2020</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Publications Section -->
+    <section id="publications" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl">
+        <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center section-title stagger-animation">Featured Publications</h2>
+        <div class="space-y-6">
+            <div class="publication-card bg-white p-6 rounded-xl shadow-md stagger-animation">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Novel computational approach for identifying potential cardiovascular therapeutics targeting ACE2 receptors</h3>
+                        <p class="text-gray-600 mb-2">Your Name, Co-author A, Co-author B</p>
+                        <p class="text-gray-500 italic mb-3">Journal of Medicinal Chemistry, 2023, 66(5), 3210-3225</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="bg-blue-100 text-blue-600 p-2 rounded-lg hover:bg-blue-200 transition">
+                            <i data-feather="external-link"></i>
+                        </button>
+                        <button class="bg-green-100 text-green-600 p-2 rounded-lg hover:bg-green-200 transition">
+                            <i data-feather="file-text"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                    <div class="flex space-x-4">
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm">Cardiovascular</span>
+                        <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm">Computational</span>
+                    </div>
+                    <div class="text-gray-500 text-sm">Cited 120 times</div>
                 </div>
             </div>
             
-            <div class="text-center mt-8">
-                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 inline-flex items-center">
-                    <i data-feather="download" class="mr-2"></i> Download Full CV (PDF)
-                </a>
+            <!-- More publication cards would go here -->
+        </div>
+        
+        <div class="text-center mt-12 stagger-animation">
+            <button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 glow">
+                View All Publications
+            </button>
+        </div>
+    </section>
+
+    <!-- Patents Section with Flip Cards -->
+    <section id="patents" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center section-title stagger-animation">Patents & Innovations</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="flip-card stagger-animation">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center">
+                        <div class="patent-badge w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mb-4">
+                            <i data-feather="file-text" class="text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 text-center">Novel ACE2 Modulators</h3>
+                    </div>
+                    <div class="flip-card-back rounded-2xl p-6">
+                        <h3 class="text-xl font-semibold text-white mb-3">Novel ACE2 Modulators</h3>
+                        <p class="text-white/90 mb-4">Indian Patent Application No: 202141012345</p>
+                        <p class="text-white/80 text-sm">Novel small molecule modulators of ACE2 receptor with potential applications in hypertension treatment.</p>
+                    </div>
+                </div>
             </div>
+            
+            <!-- More patent flip cards would go here -->
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-xl p-8 md:p-12 text-white fade-in">
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                    <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
-                    <p class="opacity-90 mb-6">Interested in collaboration or have questions about my research? Feel free to reach out.</p>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <i data-feather="mail" class="mr-4"></i>
-                            <span>your.name@university.edu</span>
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl text-white">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="stagger-animation">
+                <h2 class="text-4xl font-bold mb-6">Get In Touch</h2>
+                <p class="opacity-90 mb-8 text-lg">Interested in collaboration or have questions about my research? Feel free to reach out.</p>
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <div class="bg-white/20 p-3 rounded-lg mr-4">
+                            <i data-feather="mail" class="text-white"></i>
                         </div>
-                        <div class="flex items-center">
-                            <i data-feather="map-pin" class="mr-4"></i>
-                            <span>University Name, City, Country</span>
+                        <div>
+                            <h4 class="font-semibold">Email</h4>
+                            <p class="opacity-90">your.name@university.edu</p>
                         </div>
-                        <div class="flex items-center">
-                            <i data-feather="phone" class="mr-4"></i>
-                            <span>+91-XXX-XXX-XXXX</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-white/20 p-3 rounded-lg mr-4">
+                            <i data-feather="map-pin" class="text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Location</h4>
+                            <p class="opacity-90">University Name, City, Country</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-white/20 p-3 rounded-lg mr-4">
+                            <i data-feather="phone" class="text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Phone</h4>
+                            <p class="opacity-90">+91-XXX-XXX-XXXX</p>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <form class="space-y-4">
-                        <div>
-                            <label for="name" class="block text-sm font-medium opacity-90 mb-1">Name</label>
-                            <input type="text" id="name" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Your Name">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium opacity-90 mb-1">Email</label>
-                            <input type="email" id="email" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="your.email@example.com">
-                        </div>
-                        <div>
-                            <label for="message" class="block text-sm font-medium opacity-90 mb-1">Message</label>
-                            <textarea id="message" rows="3" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Your message here..."></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-white text-blue-600 hover:bg-gray-100 font-medium py-2 px-4 rounded-lg transition duration-300">Send Message</button>
-                    </form>
-                </div>
+            </div>
+            <div class="stagger-animation">
+                <form class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-sm font-medium opacity-90 mb-1">Name</label>
+                        <input type="text" id="name" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-white/50 placeholder-white/70" placeholder="Your Name">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium opacity-90 mb-1">Email</label>
+                        <input type="email" id="email" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-white/50 placeholder-white/70" placeholder="your.email@example.com">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium opacity-90 mb-1">Message</label>
+                        <textarea id="message" rows="4" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-white/50 placeholder-white/70" placeholder="Your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-white text-blue-600 hover:bg-gray-100 font-medium py-3 px-4 rounded-lg transition duration-300">
+                        Send Message
+                    </button>
+                </form>
             </div>
         </div>
     </section>
@@ -608,16 +697,16 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Connect</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition">
+                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition">
                             <i data-feather="linkedin"></i>
                         </a>
-                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition">
+                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition">
                             <i data-feather="twitter"></i>
                         </a>
-                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition">
+                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition">
                             <i data-feather="github"></i>
                         </a>
-                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition">
+                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition">
                             <i data-feather="book"></i>
                         </a>
                     </div>
@@ -629,10 +718,9 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script>
         // Initialize Vanta.js background
-        VANTA.GLOBE({
+        VANTA.NET({
             el: "#vanta-bg",
             mouseControls: true,
             touchControls: true,
@@ -643,9 +731,36 @@
             scaleMobile: 1.00,
             color: 0x3b82f6,
             backgroundColor: 0xf8fafc,
-            size: 0.8
+            points: 12.00,
+            maxDistance: 22.00,
+            spacing: 18.00
         });
 
+        // Create floating particles
+        function createParticles() {
+            const container = document.querySelector('.particles-container');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}vw`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
@@ -677,45 +792,94 @@
             });
         });
 
-        // Fade-in animation on scroll
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const fadeInObserver = new IntersectionObserver((entries) => {
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / 100;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(() => animateCounters(), 20);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+
+        // Stagger animation for elements
+        function animateStagger() {
+            const staggerElements = document.querySelectorAll('.stagger-animation');
+            
+            staggerElements.forEach((element, index) => {
+                const children = element.children;
+                
+                Array.from(children).forEach((child, childIndex) => {
+                    child.style.transitionDelay = `${(index * 0.1) + (childIndex * 0.05)}s`;
+                    child.style.opacity = '1';
+                    child.style.transform = 'translateY(0)';
+                });
+            });
+        }
+
+        // Text reveal animation
+        function animateTextReveal() {
+            const textReveals = document.querySelectorAll('.text-reveal');
+            
+            textReveals.forEach(reveal => {
+                const text = reveal.textContent;
+                reveal.innerHTML = '';
+                
+                for (let i = 0; i < text.length; i++) {
+                    const span = document.createElement('span');
+                    span.textContent = text[i];
+                    span.style.transitionDelay = `${i * 0.05}s`;
+                    reveal.appendChild(span);
+                }
+                
+                const spans = reveal.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.style.opacity = '1';
+                    span.style.transform = 'translateY(0)';
+                });
+            });
+        }
+
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            animateCounters();
+            
+            // Initialize Feather icons
+            feather.replace();
+            
+            // Trigger animations after a short delay
+            setTimeout(() => {
+                animateStagger();
+                animateTextReveal();
+            }, 500);
+        });
+
+        // Re-initialize animations when elements come into view
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    if (entry.target.classList.contains('stagger-animation')) {
+                        animateStagger();
+                    }
+                    if (entry.target.classList.contains('text-reveal')) {
+                        animateTextReveal();
+                    }
                 }
             });
         }, { threshold: 0.1 });
-        
-        fadeElements.forEach(element => {
-            fadeInObserver.observe(element);
-        });
 
-        // Update active navigation on scroll
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('nav a[href^="#"]');
-        
-        const navObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    navLinks.forEach(link => {
-                        link.classList.remove('active-nav');
-                        if (link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('active-nav');
-                        }
-                    });
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        sections.forEach(section => {
-            navObserver.observe(section);
+        document.querySelectorAll('.stagger-animation, .text-reveal').forEach(el => {
+            observer.observe(el);
         });
-
-        // Initialize Feather icons
-        feather.replace();
     </script>
 </body>
 </html>
