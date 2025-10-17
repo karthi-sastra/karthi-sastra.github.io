@@ -3,963 +3,572 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prof. [Your Name] | Computational Drug Design</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Prof. [Your Name] | Computational Drug Design & Medicinal Chemistry</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --text: #333;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .vanta-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        
-        body {
-            background-color: #f9f9f9;
-            color: var(--text);
-            line-height: 1.6;
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-        
-        /* Header & Navigation */
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow);
+        .section-padding {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
         }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-        
-        .logo span {
-            color: var(--secondary);
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 2rem;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-        
-        nav ul li a:hover {
-            color: var(--secondary);
-        }
-        
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--secondary);
-            transition: width 0.3s;
-        }
-        
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-        
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 8rem 0;
-            text-align: center;
-        }
-        
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--secondary);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
+        .active-nav {
+            color: #3b82f6;
             font-weight: 600;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
         }
-        
-        .btn:hover {
-            background-color: #2980b9;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Sections */
-        section {
-            padding: 5rem 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            position: relative;
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            width: 70px;
-            height: 3px;
-            background-color: var(--secondary);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        /* About Section */
-        .about-content {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-        }
-        
-        .about-img {
-            flex: 1;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-        
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s;
-        }
-        
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-        
-        .about-text {
-            flex: 2;
-        }
-        
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        /* Research Section */
-        .research-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .research-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s;
-        }
-        
-        .research-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .research-img {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .research-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .research-card:hover .research-img img {
-            transform: scale(1.1);
-        }
-        
-        .research-content {
-            padding: 1.5rem;
-        }
-        
-        .research-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-        
-        /* Publications Section */
-        .publications-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .publication-list {
-            list-style: none;
-        }
-        
         .publication-item {
-            background: white;
-            margin-bottom: 1.5rem;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s;
+            border-left: 3px solid #3b82f6;
+            transition: all 0.3s ease;
         }
-        
         .publication-item:hover {
-            transform: translateX(10px);
+            border-left-width: 6px;
+            background-color: #f8fafc;
         }
-        
-        .publication-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .publication-authors {
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
-        
-        .publication-journal {
-            font-style: italic;
-            margin-bottom: 0.5rem;
-        }
-        
-        .publication-links a {
-            color: var(--secondary);
-            text-decoration: none;
-            margin-right: 1rem;
-            font-weight: 500;
-        }
-        
-        /* Patents Section */
-        .patents-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
         .patent-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: transform 0.3s;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            transition: all 0.3s ease;
         }
-        
         .patent-card:hover {
-            transform: translateY(-10px);
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
         }
-        
-        .patent-icon {
-            font-size: 3rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-        
-        .patent-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        .patent-number {
-            color: #666;
-            margin-bottom: 1rem;
-        }
-        
-        /* Teaching Section */
-        .teaching-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
         .course-card {
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: transform 0.3s;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
         }
-        
         .course-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        
-        .course-icon {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-        
-        .course-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        /* CV Section */
-        .cv-container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            padding: 3rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-        }
-        
         .cv-section {
             margin-bottom: 2.5rem;
         }
-        
-        .cv-section h3 {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--light);
-        }
-        
         .cv-item {
             margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
         }
-        
-        .cv-item h4 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+        .cv-item:hover {
+            border-left-color: #3b82f6;
+            background-color: #f8fafc;
+            padding-left: 2rem;
         }
-        
-        .cv-item .date {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 0.5rem;
+        .floating { 
+            animation: floating 3s ease-in-out infinite;
         }
-        
-        .cv-download {
-            text-align: center;
-            margin-top: 2rem;
-        }
-        
-        /* Contact Section */
-        .contact-container {
-            display: flex;
-            gap: 3rem;
-        }
-        
-        .contact-info {
-            flex: 1;
-        }
-        
-        .contact-form {
-            flex: 2;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background-color: var(--secondary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            font-size: 1.2rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--primary);
-            color: white;
-            padding: 3rem 0 1rem;
-        }
-        
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-        }
-        
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        
-        .footer-links h4, .footer-social h4 {
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-        
-        .footer-links ul {
-            list-style: none;
-        }
-        
-        .footer-links ul li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .footer-links ul li a {
-            color: #ddd;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links ul li a:hover {
-            color: var(--secondary);
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .social-icons a:hover {
-            background-color: var(--secondary);
-            transform: translateY(-3px);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--secondary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.5rem;
-            box-shadow: var(--shadow);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-            z-index: 999;
-        }
-        
-        .back-to-top.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .about-content {
-                flex-direction: column;
-            }
-            
-            .contact-container {
-                flex-direction: column;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                gap: 2rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 1rem 0;
-                box-shadow: var(--shadow);
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0;
-                text-align: center;
-                padding: 0.8rem 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, 10px); }
+            100% { transform: translate(0, -0px); }
         }
     </style>
 </head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">Prof. <span>[Your Name]</span></div>
-            <nav>
-                <ul id="nav-menu">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#research">Research</a></li>
-                    <li><a href="#publications">Publications</a></li>
-                    <li><a href="#patents">Patents</a></li>
-                    <li><a href="#teaching">Teaching</a></li>
-                    <li><a href="#cv">CV</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="mobile-menu" id="mobile-menu">
-                    <i class="fas fa-bars"></i>
+<body class="bg-gray-50 font-sans">
+    <div id="vanta-bg" class="vanta-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="text-xl font-bold text-gray-800 flex items-center">
+                        <i data-feather="book-open" class="mr-2"></i>
+                        Prof. [Your Name]
+                    </a>
                 </div>
-            </nav>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="active-nav">Home</a>
+                    <a href="#about" class="text-gray-600 hover:text-blue-600 transition duration-300">About</a>
+                    <a href="#research" class="text-gray-600 hover:text-blue-600 transition duration-300">Research</a>
+                    <a href="#publications" class="text-gray-600 hover:text-blue-600 transition duration-300">Publications</a>
+                    <a href="#patents" class="text-gray-600 hover:text-blue-600 transition duration-300">Patents</a>
+                    <a href="#teaching" class="text-gray-600 hover:text-blue-600 transition duration-300">Teaching</a>
+                    <a href="#cv" class="text-gray-600 hover:text-blue-600 transition duration-300">CV</a>
+                    <a href="#contact" class="text-gray-600 hover:text-blue-600 transition duration-300">Contact</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-600">
+                        <i data-feather="menu"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-    </header>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white z-20 pt-20 px-4">
+        <div class="flex flex-col space-y-4">
+            <a href="#home" class="text-blue-600 font-medium py-2 border-b border-gray-100">Home</a>
+            <a href="#about" class="text-gray-600 hover:text-blue-600 py-2 border-b border-gray-100">About</a>
+            <a href="#research" class="text-gray-600 hover:text-blue-600 py-2 border-b border-gray-100">Research</a>
+            <a href="#publications" class="text-gray-600 hover:text-blue-600 py-2 border-b border-gray-100">Publications</a>
+            <a href="#patents" class="text-gray-600 hover:text-blue-600 py-2 border-b border-gray-100">Patents</a>
+            <a href="#teaching" class="text-gray-600 hover:text-blue-600 py-2 border-b border-gray-100">Teaching</a>
+            <a href="#cv" class="text-gray-600 hover:text-blue-600 py-2 border-b border-gray-100">CV</a>
+            <a href="#contact" class="text-gray-600 hover:text-blue-600 py-2">Contact</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <h1>Prof. [Your Name]</h1>
-            <p>Professor & Researcher in Computational Drug Design | Specializing in Cardiovascular and Antimicrobial Agents</p>
-            <a href="#about" class="btn">Learn More About My Work</a>
+    <section id="home" class="relative pt-32 pb-40 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Prof. <span class="gradient-text">[Your Name]</span>
+                </h1>
+                <h2 class="text-xl md:text-2xl text-gray-600 mb-6">
+                    Computational Drug Design | Medicinal Chemistry | Cardiovascular & Antimicrobial Research
+                </h2>
+                <p class="text-gray-700 mb-8 text-lg leading-relaxed">
+                    Professor and Researcher specializing in computational drug design and medicinal chemistry. 
+                    My research focuses on developing novel therapeutic agents for cardiovascular diseases and 
+                    antimicrobial resistance using cutting-edge computational approaches and molecular modeling.
+                </p>
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="flex items-center">
+                        <i data-feather="activity" class="text-blue-600 mr-2"></i>
+                        <span class="text-gray-700">15+ Years in Teaching & Research</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i data-feather="book-open" class="text-blue-600 mr-2"></i>
+                        <span class="text-gray-700">40+ Publications</span>
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#research" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
+                        Explore My Research
+                    </a>
+                    <a href="#contact" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium transition duration-300">
+                        Get In Touch
+                    </a>
+                </div>
+            </div>
+            <div class="relative fade-in">
+                <div class="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-1 inline-block floating">
+                    <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Professor Portrait" class="rounded-xl w-full h-auto">
+                </div>
+                <div class="absolute -bottom-4 -right-4 bg-blue-600 text-white p-4 rounded-xl shadow-lg">
+                    <i data-feather="award" class="w-8 h-8"></i>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Me</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Professor Portrait">
+    <section id="about" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 fade-in">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">About Me</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Academic Credentials -->
+                <div class="bg-white/90 p-6 rounded-xl border border-gray-200 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <span class="bg-blue-100 p-2 rounded-lg mr-3">
+                            <i data-feather="award" class="text-blue-600"></i>
+                        </span>
+                        Academic Credentials
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">Ph.D.</span>
+                            <div>
+                                <h4 class="font-medium text-gray-800">Medicinal Chemistry & Drug Design</h4>
+                                <p class="text-gray-600 text-sm">University Name, Year</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">M.S.</span>
+                            <div>
+                                <h4 class="font-medium text-gray-800">Pharmaceutical Sciences</h4>
+                                <p class="text-gray-600 text-sm">University Name, Year</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">B.Pharm</span>
+                            <div>
+                                <h4 class="font-medium text-gray-800">Pharmacy</h4>
+                                <p class="text-gray-600 text-sm">University Name, Year</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="about-text">
-                    <h3>Professor & Researcher in Medicinal Chemistry</h3>
-                    <p>I am a dedicated professor and researcher with over 15 years of experience in computational drug design and medicinal chemistry. My research focuses on developing novel therapeutic agents for cardiovascular diseases and antimicrobial resistance using cutting-edge computational approaches.</p>
-                    <p>My work integrates molecular modeling, cheminformatics, and structural bioinformatics to identify and optimize potential drug candidates. I have successfully led multiple research projects resulting in high-impact publications and patent applications.</p>
-                    <p>In addition to my research, I am passionate about teaching and mentoring the next generation of scientists in drug design, medicinal chemistry, and bioinformatics.</p>
-                    <a href="#contact" class="btn">Get In Touch</a>
+
+                <!-- Research Metrics -->
+                <div class="bg-white/90 p-6 rounded-xl border border-gray-200 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <span class="bg-blue-100 p-2 rounded-lg mr-3">
+                            <i data-feather="bar-chart-2" class="text-blue-600"></i>
+                        </span>
+                        Research Metrics
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-blue-600">1000+</div>
+                            <div class="text-xs text-gray-600">Citations</div>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-blue-600">18</div>
+                            <div class="text-xs text-gray-600">h-index</div>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-blue-600">40+</div>
+                            <div class="text-xs text-gray-600">Publications</div>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-blue-600">5</div>
+                            <div class="text-xs text-gray-600">Patents Filed</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Expertise -->
+                <div class="bg-white/90 p-6 rounded-xl border border-gray-200 card-hover">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <span class="bg-blue-100 p-2 rounded-lg mr-3">
+                            <i data-feather="cpu" class="text-blue-600"></i>
+                        </span>
+                        Technical Expertise
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Molecular Docking</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Molecular Dynamics</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">QSAR Modeling</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Pharmacophore Modeling</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Cheminformatics</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Drug Informatics</span>
+                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Immunoinformatics</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Research Section -->
-    <section id="research" style="background-color: #f5f7fa;">
-        <div class="container">
-            <div class="section-title">
-                <h2>Research Focus</h2>
+    <section id="research" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl">
+        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center fade-in">Research Focus Areas</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200 fade-in">
+                <div class="text-blue-600 mb-3"><i data-feather="heart" class="w-8 h-8"></i></div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Cardiovascular Drug Design</h3>
+                <p class="text-gray-600 text-sm">Developing novel therapeutic agents for cardiovascular diseases using computational approaches and molecular modeling techniques.</p>
             </div>
-            <div class="research-grid">
-                <div class="research-card">
-                    <div class="research-img">
-                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Computational Drug Design">
-                    </div>
-                    <div class="research-content">
-                        <h3>Computational Drug Design</h3>
-                        <p>Utilizing molecular docking, virtual screening, and molecular dynamics simulations to identify and optimize novel drug candidates.</p>
-                    </div>
-                </div>
-                <div class="research-card">
-                    <div class="research-img">
-                        <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Cardiovascular Agents">
-                    </div>
-                    <div class="research-content">
-                        <h3>Cardiovascular Agents</h3>
-                        <p>Developing novel therapeutics for hypertension, heart failure, and other cardiovascular conditions using structure-based drug design.</p>
-                    </div>
-                </div>
-                <div class="research-card">
-                    <div class="research-img">
-                        <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Antimicrobial Agents">
-                    </div>
-                    <div class="research-content">
-                        <h3>Antimicrobial Agents</h3>
-                        <p>Designing new antibiotics and antifungal agents to combat drug-resistant pathogens through computational approaches.</p>
-                    </div>
-                </div>
+            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200 fade-in">
+                <div class="text-blue-600 mb-3"><i data-feather="shield" class="w-8 h-8"></i></div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Antimicrobial Agents</h3>
+                <p class="text-gray-600 text-sm">Designing new antibiotics and antifungal agents to combat drug-resistant pathogens through structure-based drug design.</p>
+            </div>
+            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200 fade-in">
+                <div class="text-blue-600 mb-3"><i data-feather="cpu" class="w-8 h-8"></i></div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Computational Drug Design</h3>
+                <p class="text-gray-600 text-sm">Utilizing molecular docking, virtual screening, and molecular dynamics simulations to identify and optimize novel drug candidates.</p>
+            </div>
+            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200 fade-in">
+                <div class="text-blue-600 mb-3"><i data-feather="activity" class="w-8 h-8"></i></div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Medicinal Chemistry</h3>
+                <p class="text-gray-600 text-sm">Synthesis and optimization of lead compounds with enhanced pharmacological properties and reduced toxicity.</p>
+            </div>
+            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200 fade-in">
+                <div class="text-blue-600 mb-3"><i data-feather="database" class="w-8 h-8"></i></div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Drug Informatics</h3>
+                <p class="text-gray-600 text-sm">Application of computational methods, cheminformatics, and bioinformatics in pharmaceutical research and development.</p>
+            </div>
+            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200 fade-in">
+                <div class="text-blue-600 mb-3"><i data-feather="globe" class="w-8 h-8"></i></div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Immunoinformatics</h3>
+                <p class="text-gray-600 text-sm">Computational approaches to study immune system responses and design immunotherapeutics and vaccines.</p>
             </div>
         </div>
     </section>
 
     <!-- Publications Section -->
-    <section id="publications">
-        <div class="container">
-            <div class="section-title">
-                <h2>Publications</h2>
-            </div>
-            <div class="publications-container">
-                <ul class="publication-list">
-                    <li class="publication-item">
-                        <div class="publication-title">Novel computational approach for identifying potential cardiovascular therapeutics targeting ACE2 receptors</div>
-                        <div class="publication-authors">Your Name, Co-author A, Co-author B</div>
-                        <div class="publication-journal">Journal of Medicinal Chemistry, 2023, 66(5), 3210-3225</div>
-                        <div class="publication-links">
-                            <a href="#"><i class="fas fa-external-link-alt"></i> DOI</a>
-                            <a href="#"><i class="far fa-file-pdf"></i> PDF</a>
-                        </div>
-                    </li>
-                    <li class="publication-item">
-                        <div class="publication-title">Structure-based design of antimicrobial peptides with enhanced stability and specificity</div>
-                        <div class="publication-authors">Your Name, Co-author C, Co-author D</div>
-                        <div class="publication-journal">Bioorganic & Medicinal Chemistry, 2022, 30(15), 115-128</div>
-                        <div class="publication-links">
-                            <a href="#"><i class="fas fa-external-link-alt"></i> DOI</a>
-                            <a href="#"><i class="far fa-file-pdf"></i> PDF</a>
-                        </div>
-                    </li>
-                    <li class="publication-item">
-                        <div class="publication-title">Machine learning approaches for predicting drug-target interactions in cardiovascular diseases</div>
-                        <div class="publication-authors">Your Name, Co-author E, Co-author F</div>
-                        <div class="publication-journal">Journal of Chemical Information and Modeling, 2021, 61(8), 3985-3998</div>
-                        <div class="publication-links">
-                            <a href="#"><i class="fas fa-external-link-alt"></i> DOI</a>
-                            <a href="#"><i class="far fa-file-pdf"></i> PDF</a>
-                        </div>
-                    </li>
-                </ul>
-                <div style="text-align: center; margin-top: 2rem;">
-                    <a href="#" class="btn">View All Publications</a>
+    <section id="publications" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center fade-in">Selected Publications</h2>
+        <div class="space-y-6">
+            <div class="publication-item bg-white p-6 rounded-lg shadow-sm fade-in">
+                <div class="publication-title text-lg font-semibold text-gray-800 mb-2">Novel computational approach for identifying potential cardiovascular therapeutics targeting ACE2 receptors</div>
+                <div class="publication-authors text-gray-600 mb-2">Your Name, Co-author A, Co-author B</div>
+                <div class="publication-journal text-gray-500 italic mb-3">Journal of Medicinal Chemistry, 2023, 66(5), 3210-3225</div>
+                <div class="publication-links flex space-x-4">
+                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                        <i data-feather="external-link" class="w-4 h-4 mr-1"></i> DOI
+                    </a>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                        <i data-feather="file-text" class="w-4 h-4 mr-1"></i> PDF
+                    </a>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                        <i data-feather="quote" class="w-4 h-4 mr-1"></i> Cite
+                    </a>
                 </div>
             </div>
+            
+            <div class="publication-item bg-white p-6 rounded-lg shadow-sm fade-in">
+                <div class="publication-title text-lg font-semibold text-gray-800 mb-2">Structure-based design of antimicrobial peptides with enhanced stability and specificity</div>
+                <div class="publication-authors text-gray-600 mb-2">Your Name, Co-author C, Co-author D</div>
+                <div class="publication-journal text-gray-500 italic mb-3">Bioorganic & Medicinal Chemistry, 2022, 30(15), 115-128</div>
+                <div class="publication-links flex space-x-4">
+                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                        <i data-feather="external-link" class="w-4 h-4 mr-1"></i> DOI
+                    </a>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                        <i data-feather="file-text" class="w-4 h-4 mr-1"></i> PDF
+                    </a>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                        <i data-feather="quote" class="w-4 h-4 mr-1"></i> Cite
+                    </a>
+                </div>
+            </div>
+            
+            <div class="publication-item bg-white p-6 rounded-lg shadow-sm fade-in">
+                <div class="publication-title text-lg font-semibold text-gray-800 mb-2">Machine learning approaches for predicting drug-target interactions in cardiovascular diseases</div>
+                <div class="publication-authors text-gray-600 mb-2">Your Name, Co-author E, Co-author F</div>
+                <div class="publication-journal text-gray-500 italic mb-3">Journal of Chemical Information and Modeling, 2021, 61(8), 3985-3998</div>
+                <div class="publication-links flex space-x-4">
+                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                        <i data-feather="external-link" class="w-4 h-4 mr-1"></i> DOI
+                    </a>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                        <i data-feather="file-text" class="w-4 h-4 mr-1"></i> PDF
+                    </a>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                        <i data-feather="quote" class="w-4 h-4 mr-1"></i> Cite
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8 fade-in">
+            <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 inline-flex items-center">
+                <i data-feather="list" class="mr-2"></i> View All Publications
+            </a>
         </div>
     </section>
 
     <!-- Patents Section -->
-    <section id="patents" style="background-color: #f5f7fa;">
-        <div class="container">
-            <div class="section-title">
-                <h2>Patents</h2>
+    <section id="patents" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl">
+        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center fade-in">Patents</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="patent-card rounded-xl shadow-lg p-6 card-hover fade-in">
+                <div class="patent-icon text-blue-600 mb-4 flex justify-center">
+                    <i data-feather="file-text" class="w-12 h-12"></i>
+                </div>
+                <div class="patent-title text-lg font-semibold text-gray-800 mb-2 text-center">Novel ACE2 Modulators for Treatment of Hypertension</div>
+                <div class="patent-number text-gray-600 text-sm mb-3 text-center">Indian Patent Application No: 202141012345</div>
+                <p class="text-gray-600 text-sm text-center">This patent application discloses novel small molecule modulators of ACE2 receptor with potential applications in hypertension treatment.</p>
             </div>
-            <div class="patents-container">
-                <div class="patent-card">
-                    <div class="patent-icon">
-                        <i class="fas fa-scroll"></i>
-                    </div>
-                    <div class="patent-title">Novel ACE2 Modulators for Treatment of Hypertension</div>
-                    <div class="patent-number">Indian Patent Application No: 202141012345</div>
-                    <p>This patent application discloses novel small molecule modulators of ACE2 receptor with potential applications in hypertension treatment.</p>
+            
+            <div class="patent-card rounded-xl shadow-lg p-6 card-hover fade-in">
+                <div class="patent-icon text-blue-600 mb-4 flex justify-center">
+                    <i data-feather="file-text" class="w-12 h-12"></i>
                 </div>
-                <div class="patent-card">
-                    <div class="patent-icon">
-                        <i class="fas fa-scroll"></i>
-                    </div>
-                    <div class="patent-title">Antimicrobial Peptides with Enhanced Stability</div>
-                    <div class="patent-number">PCT Application No: PCT/IB2022/054321</div>
-                    <p>International patent application covering novel antimicrobial peptides designed using computational approaches with improved stability profiles.</p>
+                <div class="patent-title text-lg font-semibold text-gray-800 mb-2 text-center">Antimicrobial Peptides with Enhanced Stability</div>
+                <div class="patent-number text-gray-600 text-sm mb-3 text-center">PCT Application No: PCT/IB2022/054321</div>
+                <p class="text-gray-600 text-sm text-center">International patent application covering novel antimicrobial peptides designed using computational approaches with improved stability profiles.</p>
+            </div>
+            
+            <div class="patent-card rounded-xl shadow-lg p-6 card-hover fade-in">
+                <div class="patent-icon text-blue-600 mb-4 flex justify-center">
+                    <i data-feather="file-text" class="w-12 h-12"></i>
                 </div>
-                <div class="patent-card">
-                    <div class="patent-icon">
-                        <i class="fas fa-scroll"></i>
-                    </div>
-                    <div class="patent-title">Computational Platform for Drug Repurposing in Cardiovascular Diseases</div>
-                    <div class="patent-number">Indian Patent Application No: 202241056789</div>
-                    <p>This application describes a novel computational platform for identifying existing drugs with potential applications in cardiovascular diseases.</p>
-                </div>
+                <div class="patent-title text-lg font-semibold text-gray-800 mb-2 text-center">Computational Platform for Drug Repurposing in Cardiovascular Diseases</div>
+                <div class="patent-number text-gray-600 text-sm mb-3 text-center">Indian Patent Application No: 202241056789</div>
+                <p class="text-gray-600 text-sm text-center">This application describes a novel computational platform for identifying existing drugs with potential applications in cardiovascular diseases.</p>
             </div>
         </div>
     </section>
 
     <!-- Teaching Section -->
-    <section id="teaching">
-        <div class="container">
-            <div class="section-title">
-                <h2>Teaching</h2>
+    <section id="teaching" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center fade-in">Teaching</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="course-card fade-in">
+                <div class="bg-blue-600 text-white p-4">
+                    <i data-feather="book-open" class="w-8 h-8"></i>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Drug Design</h3>
+                    <p class="text-gray-600 text-sm">Principles and applications of computer-aided drug design, molecular modeling, and structure-based drug discovery.</p>
+                </div>
             </div>
-            <div class="teaching-grid">
-                <div class="course-card">
-                    <div class="course-icon">
-                        <i class="fas fa-pills"></i>
-                    </div>
-                    <div class="course-title">Drug Design</div>
-                    <p>Principles and applications of computer-aided drug design, molecular modeling, and structure-based drug discovery.</p>
+            
+            <div class="course-card fade-in">
+                <div class="bg-blue-600 text-white p-4">
+                    <i data-feather="flask" class="w-8 h-8"></i>
                 </div>
-                <div class="course-card">
-                    <div class="course-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <div class="course-title">Medicinal Chemistry</div>
-                    <p>Study of drug discovery and development with emphasis on structure-activity relationships and drug optimization.</p>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Medicinal Chemistry</h3>
+                    <p class="text-gray-600 text-sm">Study of drug discovery and development with emphasis on structure-activity relationships and drug optimization.</p>
                 </div>
-                <div class="course-card">
-                    <div class="course-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <div class="course-title">Drug Informatics</div>
-                    <p>Application of computational methods, cheminformatics, and bioinformatics in pharmaceutical research.</p>
+            </div>
+            
+            <div class="course-card fade-in">
+                <div class="bg-blue-600 text-white p-4">
+                    <i data-feather="cpu" class="w-8 h-8"></i>
                 </div>
-                <div class="course-card">
-                    <div class="course-icon">
-                        <i class="fas fa-shield-virus"></i>
-                    </div>
-                    <div class="course-title">Immunoinformatics</div>
-                    <p>Computational approaches to study immune system responses and design immunotherapeutics and vaccines.</p>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Drug Informatics</h3>
+                    <p class="text-gray-600 text-sm">Application of computational methods, cheminformatics, and bioinformatics in pharmaceutical research.</p>
+                </div>
+            </div>
+            
+            <div class="course-card fade-in">
+                <div class="bg-blue-600 text-white p-4">
+                    <i data-feather="shield" class="w-8 h-8"></i>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Immunoinformatics</h3>
+                    <p class="text-gray-600 text-sm">Computational approaches to study immune system responses and design immunotherapeutics and vaccines.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CV Section -->
-    <section id="cv" style="background-color: #f5f7fa;">
-        <div class="container">
-            <div class="section-title">
-                <h2>Curriculum Vitae</h2>
+    <section id="cv" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl">
+        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center fade-in">Curriculum Vitae</h2>
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 fade-in">
+            <div class="cv-section">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                    <span class="bg-blue-100 p-2 rounded-lg mr-3">
+                        <i data-feather="award" class="text-blue-600"></i>
+                    </span>
+                    Education
+                </h3>
+                <div class="cv-item">
+                    <h4 class="text-lg font-medium text-gray-800">Ph.D. in Medicinal Chemistry</h4>
+                    <div class="text-gray-600 text-sm mb-1">University Name, City, Country</div>
+                    <div class="text-gray-500 text-xs">2005 - 2009</div>
+                </div>
+                <div class="cv-item">
+                    <h4 class="text-lg font-medium text-gray-800">M.Sc. in Pharmaceutical Chemistry</h4>
+                    <div class="text-gray-600 text-sm mb-1">University Name, City, Country</div>
+                    <div class="text-gray-500 text-xs">2003 - 2005</div>
+                </div>
+                <div class="cv-item">
+                    <h4 class="text-lg font-medium text-gray-800">B.Pharm</h4>
+                    <div class="text-gray-600 text-sm mb-1">University Name, City, Country</div>
+                    <div class="text-gray-500 text-xs">1999 - 2003</div>
+                </div>
             </div>
-            <div class="cv-container">
-                <div class="cv-section">
-                    <h3>Education</h3>
-                    <div class="cv-item">
-                        <h4>Ph.D. in Medicinal Chemistry</h4>
-                        <div class="date">2005 - 2009</div>
-                        <p>University Name, City, Country</p>
-                    </div>
-                    <div class="cv-item">
-                        <h4>M.Sc. in Pharmaceutical Chemistry</h4>
-                        <div class="date">2003 - 2005</div>
-                        <p>University Name, City, Country</p>
-                    </div>
-                    <div class="cv-item">
-                        <h4>B.Pharm</h4>
-                        <div class="date">1999 - 2003</div>
-                        <p>University Name, City, Country</p>
-                    </div>
+            
+            <div class="cv-section">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                    <span class="bg-blue-100 p-2 rounded-lg mr-3">
+                        <i data-feather="briefcase" class="text-blue-600"></i>
+                    </span>
+                    Academic Positions
+                </h3>
+                <div class="cv-item">
+                    <h4 class="text-lg font-medium text-gray-800">Professor</h4>
+                    <div class="text-gray-600 text-sm mb-1">Department of Medicinal Chemistry, University Name</div>
+                    <div class="text-gray-500 text-xs">2018 - Present</div>
                 </div>
-                
-                <div class="cv-section">
-                    <h3>Academic Positions</h3>
-                    <div class="cv-item">
-                        <h4>Professor</h4>
-                        <div class="date">2018 - Present</div>
-                        <p>Department of Medicinal Chemistry, University Name</p>
-                    </div>
-                    <div class="cv-item">
-                        <h4>Associate Professor</h4>
-                        <div class="date">2012 - 2018</div>
-                        <p>Department of Medicinal Chemistry, University Name</p>
-                    </div>
-                    <div class="cv-item">
-                        <h4>Assistant Professor</h4>
-                        <div class="date">2009 - 2012</div>
-                        <p>Department of Pharmaceutical Sciences, University Name</p>
-                    </div>
+                <div class="cv-item">
+                    <h4 class="text-lg font-medium text-gray-800">Associate Professor</h4>
+                    <div class="text-gray-600 text-sm mb-1">Department of Medicinal Chemistry, University Name</div>
+                    <div class="text-gray-500 text-xs">2012 - 2018</div>
                 </div>
-                
-                <div class="cv-section">
-                    <h3>Awards & Honors</h3>
-                    <div class="cv-item">
-                        <h4>Young Scientist Award</h4>
-                        <div class="date">2015</div>
-                        <p>Indian Council of Medical Research</p>
-                    </div>
-                    <div class="cv-item">
-                        <h4>Best Researcher Award</h4>
-                        <div class="date">2018</div>
-                        <p>University Name</p>
-                    </div>
-                    <div class="cv-item">
-                        <h4>Outstanding Teacher Award</h4>
-                        <div class="date">2020</div>
-                        <p>Department of Medicinal Chemistry</p>
-                    </div>
+                <div class="cv-item">
+                    <h4 class="text-lg font-medium text-gray-800">Assistant Professor</h4>
+                    <div class="text-gray-600 text-sm mb-1">Department of Pharmaceutical Sciences, University Name</div>
+                    <div class="text-gray-500 text-xs">2009 - 2012</div>
                 </div>
-                
-                <div class="cv-download">
-                    <a href="#" class="btn"><i class="fas fa-download"></i> Download Full CV (PDF)</a>
+            </div>
+            
+            <div class="cv-section">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                    <span class="bg-blue-100 p-2 rounded-lg mr-3">
+                        <i data-feather="star" class="text-blue-600"></i>
+                    </span>
+                    Awards & Honors
+                </h3>
+                <div class="cv-item">
+                    <h4 class="text-lg font-medium text-gray-800">Young Scientist Award</h4>
+                    <div class="text-gray-600 text-sm mb-1">Indian Council of Medical Research</div>
+                    <div class="text-gray-500 text-xs">2015</div>
                 </div>
+                <div class="cv-item">
+                    <h4 class="text-lg font-medium text-gray-800">Best Researcher Award</h4>
+                    <div class="text-gray-600 text-sm mb-1">University Name</div>
+                    <div class="text-gray-500 text-xs">2018</div>
+                </div>
+                <div class="cv-item">
+                    <h4 class="text-lg font-medium text-gray-800">Outstanding Teacher Award</h4>
+                    <div class="text-gray-600 text-sm mb-1">Department of Medicinal Chemistry</div>
+                    <div class="text-gray-500 text-xs">2020</div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300 inline-flex items-center">
+                    <i data-feather="download" class="mr-2"></i> Download Full CV (PDF)
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contact Me</h2>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+    <section id="contact" class="section-padding px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-xl p-8 md:p-12 text-white fade-in">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+                    <p class="opacity-90 mb-6">Interested in collaboration or have questions about my research? Feel free to reach out.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i data-feather="mail" class="mr-4"></i>
+                            <span>your.name@university.edu</span>
                         </div>
-                        <div>
-                            <h4>Location</h4>
-                            <p>Department of Medicinal Chemistry<br>University Name<br>City, State, ZIP Code</p>
+                        <div class="flex items-center">
+                            <i data-feather="map-pin" class="mr-4"></i>
+                            <span>University Name, City, Country</span>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h4>Email</h4>
-                            <p>your.name@university.edu</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>+91-XXX-XXX-XXXX</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div>
-                            <h4>Office Hours</h4>
-                            <p>Monday - Friday: 10:00 AM - 4:00 PM</p>
+                        <div class="flex items-center">
+                            <i data-feather="phone" class="mr-4"></i>
+                            <span>+91-XXX-XXX-XXXX</span>
                         </div>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" class="form-control" required>
+                <div>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium opacity-90 mb-1">Name</label>
+                            <input type="text" id="name" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Your Name">
                         </div>
-                        <div class="form-group">
-                            <label for="email">Your Email</label>
-                            <input type="email" id="email" class="form-control" required>
+                        <div>
+                            <label for="email" class="block text-sm font-medium opacity-90 mb-1">Email</label>
+                            <input type="email" id="email" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="your.email@example.com">
                         </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" class="form-control" required>
+                        <div>
+                            <label for="message" class="block text-sm font-medium opacity-90 mb-1">Message</label>
+                            <textarea id="message" rows="3" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Your message here..."></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <textarea id="message" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="btn">Send Message</button>
+                        <button type="submit" class="w-full bg-white text-blue-600 hover:bg-gray-100 font-medium py-2 px-4 rounded-lg transition duration-300">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -967,74 +576,90 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <div class="footer-logo">Prof. [Your Name]</div>
-                    <p>Professor & Researcher specializing in Computational Drug Design for Cardiovascular and Antimicrobial Agents.</p>
+    <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Prof. [Your Name]</h3>
+                    <p class="text-gray-400">Professor and Researcher specializing in computational drug design and medicinal chemistry, advancing therapeutic development for cardiovascular and antimicrobial applications.</p>
                 </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#research">Research</a></li>
-                        <li><a href="#publications">Publications</a></li>
-                        <li><a href="#teaching">Teaching</a></li>
-                        <li><a href="#cv">CV</a></li>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#research" class="text-gray-400 hover:text-white transition">Research</a></li>
+                        <li><a href="#publications" class="text-gray-400 hover:text-white transition">Publications</a></li>
+                        <li><a href="#patents" class="text-gray-400 hover:text-white transition">Patents</a></li>
+                        <li><a href="#teaching" class="text-gray-400 hover:text-white transition">Teaching</a></li>
                     </ul>
                 </div>
-                <div class="footer-social">
-                    <h4>Connect With Me</h4>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-google-scholar"></i></a>
-                        <a href="#"><i class="fab fa-researchgate"></i></a>
-                        <a href="#"><i class="fab fa-orcid"></i></a>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i data-feather="mail" class="mr-2 w-4 h-4"></i>
+                            your.name@university.edu
+                        </li>
+                        <li class="flex items-center">
+                            <i data-feather="map-pin" class="mr-2 w-4 h-4"></i>
+                            University Name
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition">
+                            <i data-feather="linkedin"></i>
+                        </a>
+                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition">
+                            <i data-feather="twitter"></i>
+                        </a>
+                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition">
+                            <i data-feather="github"></i>
+                        </a>
+                        <a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition">
+                            <i data-feather="book"></i>
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2023 Prof. [Your Name]. All Rights Reserved.</p>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Prof. [Your Name]. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <a href="#home" class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-
+    <!-- Scripts -->
     <script>
-        // Mobile Menu Toggle
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navMenu = document.getElementById('nav-menu');
-        
-        mobileMenu.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
+        // Initialize Vanta.js background
+        VANTA.GLOBE({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x3b82f6,
+            backgroundColor: 0xf8fafc,
+            size: 0.8
         });
-        
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
         // Close mobile menu when clicking on a link
-        const navLinks = document.querySelectorAll('nav ul li a');
-        navLinks.forEach(link => {
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
+                document.getElementById('mobile-menu').classList.add('hidden');
             });
         });
-        
-        // Back to Top Button
-        const backToTopButton = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('active');
-            } else {
-                backToTopButton.classList.remove('active');
-            }
-        });
-        
-        // Smooth Scrolling
+
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1045,20 +670,52 @@
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 100,
                         behavior: 'smooth'
                     });
                 }
             });
         });
+
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
         
-        // Form Submission
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! I will get back to you soon.');
-            contactForm.reset();
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
         });
+
+        // Update active navigation on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
+        
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active-nav');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active-nav');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        sections.forEach(section => {
+            navObserver.observe(section);
+        });
+
+        // Initialize Feather icons
+        feather.replace();
     </script>
 </body>
 </html>
