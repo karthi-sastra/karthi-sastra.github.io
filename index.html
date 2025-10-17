@@ -3,249 +3,723 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Karthi Shanmugam | Computational Drug Discovery & Bioinformatics</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <title>[Your Name] | Computational Drug Design</title>
     <style>
-        .vanta-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        .gradient-text {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover {
+
+        :root {
+            --primary: #000000;
+            --secondary: #ffffff;
+            --accent: #0055a4;
+            --accent-light: #4a86e8;
+            --gray-dark: #333333;
+            --gray-medium: #666666;
+            --gray-light: #f5f5f5;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+            --border-radius: 4px;
+            --line-height: 1.6;
+            --font-main: 'Helvetica Neue', Arial, sans-serif;
+            --font-heading: 'Georgia', serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            font-size: 16px;
+            line-height: var(--line-height);
+            color: var(--primary);
+            background-color: var(--secondary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+            padding-bottom: var(--spacing-xs);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        p {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-light);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        section {
+            padding: var(--spacing-lg) 0;
+        }
+
+        section:nth-child(even) {
+            background-color: var(--gray-light);
+        }
+
+        /* Header & Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: var(--secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) 0;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: var(--spacing-md);
+        }
+
+        nav a {
+            font-weight: 500;
+            padding: var(--spacing-xs) 0;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--gray-light) 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray-dark);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: var(--accent);
+            color: var(--secondary);
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-light);
+            color: var(--secondary);
+        }
+
+        /* About Section */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: var(--spacing-lg);
+            align-items: start;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .research-interests {
+            margin-top: var(--spacing-md);
+        }
+
+        .research-interests ul {
+            list-style-type: none;
+        }
+
+        .research-interests li {
+            margin-bottom: var(--spacing-xs);
+            padding-left: var(--spacing-sm);
+            position: relative;
+        }
+
+        .research-interests li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Research Section */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .research-card {
+            background-color: var(--secondary);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .research-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .research-card h3 {
+            color: var(--accent);
+        }
+
+        /* Teaching Section */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .course-card {
+            background-color: var(--secondary);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .course-card h3 {
+            color: var(--accent);
+        }
+
+        /* Publications Section */
+        .publication-list {
+            list-style-type: none;
+        }
+
+        .publication-item {
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--gray-medium);
+        }
+
+        .publication-item:last-child {
+            border-bottom: none;
+        }
+
+        .publication-title {
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .publication-authors {
+            font-style: italic;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .publication-details {
+            color: var(--gray-medium);
+            font-size: 0.9rem;
+        }
+
+        .patent-section {
+            margin-top: var(--spacing-lg);
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto var(--spacing-sm);
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-name {
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .member-role {
+            color: var(--accent);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .contact-info {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--gray-medium);
+            border-radius: var(--border-radius);
+            font-family: var(--font-main);
+            font-size: 1rem;
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--secondary);
+            padding: var(--spacing-lg) 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            margin: var(--spacing-md) 0;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            color: var(--primary);
+            margin: 0 var(--spacing-xs);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--accent);
+            color: var(--secondary);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--gray-medium);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: var(--spacing-sm);
+                justify-content: center;
+            }
+
+            nav li {
+                margin: 0 var(--spacing-xs);
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <div id="vanta-bg" class="vanta-bg"></div>
-
-    <!-- Navigation -->
-    <nav class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="#" class="text-xl font-bold text-gray-800 flex items-center">
-                        <i data-feather="book-open" class="mr-2"></i>
-                        Dr. Karthi Shanmugam
-                    </a>
-                </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="text-blue-600 font-medium">Home</a>
-                    <a href="research.html" class="text-gray-600 hover:text-blue-600">Research</a>
-                    <a href="teaching.html" class="text-gray-600 hover:text-blue-600">Teaching</a>
-                    <a href="publications.html" class="text-gray-600 hover:text-blue-600">Publications</a>
-                    <a href="patents.html" class="text-gray-600 hover:text-blue-600">Patents</a>
-                    <a href="cv.html" class="text-gray-600 hover:text-blue-600">CV</a>
-                </div>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" class="text-gray-600">
-                        <i data-feather="menu"></i>
-                    </button>
-                </div>
-            </div>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">[Your Name]</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#research">Research</a></li>
+                    <li><a href="#teaching">Teaching</a></li>
+                    <li><a href="#publications">Publications</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white z-20 pt-20 px-4">
-        <div class="flex flex-col space-y-4">
-            <a href="index.html" class="text-blue-600 font-medium py-2 border-b border-gray-100">Home</a>
-            <a href="research.html" class="text-gray-600 hover:text-blue-600 py-2 border-b border-gray-100">Research</a>
-            <a href="teaching.html" class="text-gray-600 hover:text-blue-600 py-2 border-b border-gray-100">Teaching</a>
-            <a href="publications.html" class="text-gray-600 hover:text-blue-600 py-2 border-b border-gray-100">Publications</a>
-            <a href="patents.html" class="text-gray-600 hover:text-blue-600 py-2 border-b border-gray-100">Patents</a>
-            <a href="cv.html" class="text-gray-600 hover:text-blue-600 py-2">CV</a>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="relative pt-32 pb-40 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div id="particles-js" class="absolute inset-0 z-0"></div>
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                    Dr. <span class="gradient-text">Karthi Shanmugam</span>
-                </h1>
-                <h2 class="text-xl md:text-2xl text-gray-600 mb-6">
-                    Computational Drug Discovery | Bioinformatics | Cardioprotection
-                </h2>
-                <p class="text-gray-700 mb-8 text-lg leading-relaxed">
-                    Assistant Professor and Researcher specializing in computational drug design and mitochondrial cardioprotection.
-                    My interdisciplinary work integrates molecular modeling, systems pharmacology, and AI-driven analytics to accelerate
-                    natural product-based drug discovery for ischemia-reperfusion injury and cardiovascular diseases.
-                </p>
-                <div class="flex items-center space-x-4 mb-6">
-                    <div class="flex items-center">
-                        <i data-feather="activity" class="text-blue-600 mr-2"></i>
-                        <span class="text-gray-700">10+ Years in Teaching & Research</span>
-                    </div>
-                    <div class="flex items-center">
-                        <i data-feather="book-open" class="text-blue-600 mr-2"></i>
-                        <span class="text-gray-700">35+ Publications</span>
-                    </div>
-                </div>
-                <div class="flex space-x-4">
-                    <a href="#about" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
-                        Explore My Work
-                    </a>
-                    <a href="cv.html" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium transition duration-300">
-                        View CV
-                    </a>
-                </div>
-            </div>
-            <div class="relative">
-                <div class="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-1 inline-block">
-                    <img src="http://static.photos/workspace/640x360/42" alt="Dr. Karthi Shanmugam" class="rounded-xl w-full h-auto">
-                </div>
-                <div class="absolute -bottom-4 -right-4 bg-blue-600 text-white p-4 rounded-xl shadow-lg">
-                    <i data-feather="heart" class="w-8 h-8"></i>
-                </div>
+    <!-- Home / Landing Page -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Professor [Your Name]</h1>
+                <p>Computational Drug Design • Medicinal Chemistry • Drug Informatics</p>
+                <p>Department of Pharmaceutical Sciences, [University Name]</p>
+                <p>Specializing in CADD approaches for Cardiovascular and Infectious Diseases</p>
+                <a href="#about" class="btn">Learn More</a>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">About Me</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Academic Credentials -->
-                <div class="bg-white/90 p-6 rounded-xl border border-gray-200">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                        <span class="bg-blue-100 p-2 rounded-lg mr-3">
-                            <i data-feather="award" class="text-blue-600"></i>
-                        </span>
-                        Academic Credentials
-                    </h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start">
-                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">Ph.D.</span>
-                            <div>
-                                <h4 class="font-medium text-gray-800">Drug Discovery for Myocardial I/R Injury</h4>
-                                <p class="text-gray-600 text-sm">SASTRA Deemed University, 2025</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">M.Tech</span>
-                            <div>
-                                <h4 class="font-medium text-gray-800">Bioinformatics</h4>
-                                <p class="text-gray-600 text-sm">SASTRA Deemed University, 2014</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="bg-blue-600 text-white text-xs font-medium px-2 py-1 rounded-full mr-3 mt-1">B.Tech</span>
-                            <div>
-                                <h4 class="font-medium text-gray-800">Biotechnology</h4>
-                                <p class="text-gray-600 text-sm">SASTRA Deemed University, 2012</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Research Metrics -->
-                <div class="bg-white/90 p-6 rounded-xl border border-gray-200">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                        <span class="bg-blue-100 p-2 rounded-lg mr-3">
-                            <i data-feather="bar-chart-2" class="text-blue-600"></i>
-                        </span>
-                        Research Metrics
-                    </h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <div class="text-2xl font-bold text-blue-600">800+</div>
-                            <div class="text-xs text-gray-600">Citations</div>
-                        </div>
-                        <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <div class="text-2xl font-bold text-blue-600">15</div>
-                            <div class="text-xs text-gray-600">h-index</div>
-                        </div>
-                        <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <div class="text-2xl font-bold text-blue-600">35+</div>
-                            <div class="text-xs text-gray-600">Publications</div>
-                        </div>
-                        <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <div class="text-2xl font-bold text-blue-600">3</div>
-                            <div class="text-xs text-gray-600">Patents Filed</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Technical Expertise -->
-                <div class="bg-white/90 p-6 rounded-xl border border-gray-200">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                        <span class="bg-blue-100 p-2 rounded-lg mr-3">
-                            <i data-feather="cpu" class="text-blue-600"></i>
-                        </span>
-                        Technical Expertise
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Molecular Docking</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Molecular Dynamics</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">ADMET & QSAR Modeling</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Pharmacophore Modeling</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">DFT Calculations</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Network Pharmacology</span>
-                        <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-xs font-medium">Machine Learning in Drug Discovery</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Research Impact Section -->
-    <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl">
-        <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Translational Research Impact</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200">
-                <div class="text-blue-600 mb-3"><i data-feather="heart" class="w-8 h-8"></i></div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Cardioprotection</h3>
-                <p class="text-gray-600 text-sm">Discovered polyphenol-based cardioprotectants targeting GSK3β to mitigate ischemia–reperfusion injury.</p>
-            </div>
-            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200">
-                <div class="text-blue-600 mb-3"><i data-feather="cpu" class="w-8 h-8"></i></div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Computational Drug Design</h3>
-                <p class="text-gray-600 text-sm">Developed integrated in silico workflows combining docking, MD, and ADMET predictions for precision pharmacology.</p>
-            </div>
-            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200">
-                <div class="text-blue-600 mb-3"><i data-feather="activity" class="w-8 h-8"></i></div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Mitochondrial Biology</h3>
-                <p class="text-gray-600 text-sm">Elucidated mitochondrial mechanisms underlying redox balance, bioenergetics, and cellular resilience in cardiac tissue.</p>
-            </div>
-            <div class="bg-white/90 rounded-xl shadow-lg p-6 card-hover border border-gray-200">
-                <div class="text-blue-600 mb-3"><i data-feather="globe" class="w-8 h-8"></i></div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Collaborative Science</h3>
-                <p class="text-gray-600 text-sm">Fosters interdisciplinary collaborations across computational biology, pharmacology, and translational medicine.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-xl p-8 md:p-12 text-white">
-            <div class="grid md:grid-cols-2 gap-8 items-center">
+    <!-- About / Profile -->
+    <section id="about">
+        <div class="container">
+            <h2>About</h2>
+            <div class="about-container">
                 <div>
-                    <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
-                    <p class="opacity-90 mb-6">Interested in collaboration or have questions about my research? Feel free to reach out.</p>
-                    <div class="space-y-4">
-                        <div class="flex items-center"><i data-feather="mail" class="mr-4"></i><span>karthi.shanmugam@sastra.edu</span></div>
-                        <div class="flex items-center"><i data-feather="map-pin" class="mr-4"></i><span>SASTRA Deemed University, Thanjavur, India</span></div>
-                        <div class="flex items-center"><i data-feather="phone" class="mr-4"></i><span>+91 9489XXXXXX</span></div>
-                    </div>
+                    <img src="[Link to Profile Image]" alt="Professor [Your Name]" class="profile-image">
                 </div>
                 <div>
-                    <form class="space-y-4">
-                        <div><label for="name" class="block text-sm font-medium opacity-90 mb-1">Name</label><input type="text" id="name" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Your Name"></div>
-                        <div><label for="email" class="block text-sm font-medium opacity-90 mb-1">Email</label><input type="email" id="email" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="your.email@example.com"></div>
-                        <div><label for="message" class="block text-sm font-medium opacity-90 mb-1">Message</label><textarea id="message" rows="3" class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Your message here..."></textarea></div>
-                        <button type="submit" class="w-full bg-white text-blue-600 hover:bg-gray-100 font-medium py-2 px-4 rounded-lg transition duration-300">Send Message</button>
+                    <p>Professor [Your Name] leads an interdisciplinary research program at the intersection of computational chemistry, structural biology, and medicinal chemistry. With over 15 years of experience in computer-aided drug design (CADD), our lab focuses on developing novel therapeutic strategies for cardiovascular diseases and emerging infectious diseases.</p>
+                    
+                    <p>Our research integrates structure-based drug design, molecular dynamics simulations, QSAR modeling, and AI/ML approaches to accelerate drug discovery pipelines. We maintain strong collaborations with experimental groups to validate computational predictions and advance promising candidates toward clinical development.</p>
+                    
+                    <div class="research-interests">
+                        <h3>Research Interests</h3>
+                        <ul>
+                            <li>Structure-based virtual screening and molecular docking</li>
+                            <li>Free energy calculations (MM/PBSA, MM/GBSA)</li>
+                            <li>QSAR and machine learning in drug discovery</li>
+                            <li>Targeting protein-protein interactions</li>
+                            <li>Multi-target drug design for complex diseases</li>
+                            <li>Immunoinformatics and vaccine design</li>
+                            <li>AI-driven de novo drug design</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research -->
+    <section id="research">
+        <div class="container">
+            <h2>Research</h2>
+            <div class="research-grid">
+                <div class="research-card">
+                    <h3>Cardiovascular Drug Discovery</h3>
+                    <p>Development of novel small molecule inhibitors targeting key enzymes in hypertension and atherosclerosis pathways. Our recent work focuses on allosteric modulators of ACE2 and optimization of dual-acting cardiovascular agents using structure-based approaches.</p>
+                    <p><strong>Key Methods:</strong> Molecular dynamics, Free energy perturbation, Pharmacophore modeling</p>
+                </div>
+                <div class="research-card">
+                    <h3>Antiviral Therapeutics</h3>
+                    <p>Design of broad-spectrum antiviral agents targeting conserved regions of viral proteases and polymerases. Current projects include inhibitors of SARS-CoV-2 main protease (M<sup>pro</sup>) and RNA-dependent RNA polymerase (RdRp) with improved resistance profiles.</p>
+                    <p><strong>Key Methods:</strong> Structure-based virtual screening, MM/PBSA calculations, ADMET prediction</p>
+                </div>
+                <div class="research-card">
+                    <h3>AI-Enhanced Drug Design</h3>
+                    <p>Implementation of deep learning architectures for de novo molecular generation and property prediction. Our lab develops specialized neural networks for scaffold hopping and multi-parameter optimization in lead compound development.</p>
+                    <p><strong>Key Methods:</strong> Graph neural networks, Reinforcement learning, Generative models</p>
+                </div>
+                <div class="research-card">
+                    <h3>Immunoinformatics</h3>
+                    <p>Computational epitope prediction and vaccine design for emerging pathogens. We employ immunoinformatics pipelines to identify conserved T-cell and B-cell epitopes with broad population coverage for next-generation vaccine candidates.</p>
+                    <p><strong>Key Methods:</strong> MHC binding prediction, Epitope conservancy analysis, Population coverage calculation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teaching / Courses -->
+    <section id="teaching">
+        <div class="container">
+            <h2>Teaching & Courses</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <h3>PHA 601: Advanced Drug Design</h3>
+                    <p>Graduate-level course covering modern computational approaches in drug discovery, including molecular docking, pharmacophore modeling, and structure-based design principles.</p>
+                    <p><strong>Topics:</strong> Molecular recognition, Binding free energy calculations, Fragment-based drug design</p>
+                </div>
+                <div class="course-card">
+                    <h3>PHA 545: Medicinal Chemistry</h3>
+                    <p>Comprehensive overview of drug-target interactions, structure-activity relationships, and lead optimization strategies with emphasis on cardiovascular and antiviral agents.</p>
+                    <p><strong>Topics:</strong> QSAR, Prodrug design, Multi-target directed ligands</p>
+                </div>
+                <div class="course-card">
+                    <h3>PHA 712: Drug Informatics</h3>
+                    <p>Advanced course on cheminformatics, bioinformatics, and AI applications in pharmaceutical sciences, including hands-on training with industry-standard software.</p>
+                    <p><strong>Topics:</strong> Molecular descriptors, Machine learning, High-throughput screening data analysis</p>
+                </div>
+                <div class="course-card">
+                    <h3>PHA 625: Immunoinformatics</h3>
+                    <p>Specialized course focusing on computational immunology methods for vaccine design, including epitope prediction, immunogenicity assessment, and reverse vaccinology.</p>
+                    <p><strong>Topics:</strong> MHC polymorphism, Epitope conservancy, Vaccine adjuvant design</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications / Patents -->
+    <section id="publications">
+        <div class="container">
+            <h2>Publications & Patents</h2>
+            
+            <h3>Selected Publications</h3>
+            <ul class="publication-list">
+                <li class="publication-item">
+                    <div class="publication-title">Structure-based design of novel ACE2 allosteric modulators for cardiovascular protection</div>
+                    <div class="publication-authors">[Your Name], Researcher A, Collaborator B</div>
+                    <div class="publication-details">Journal of Medicinal Chemistry, 2023, 66(8), 5421-5435</div>
+                </li>
+                <li class="publication-item">
+                    <div class="publication-title">Machine learning-guided optimization of SARS-CoV-2 main protease inhibitors with improved metabolic stability</div>
+                    <div class="publication-authors">Researcher C, [Your Name], Collaborator D</div>
+                    <div class="publication-details">Journal of Chemical Information and Modeling, 2023, 63(4), 1256-1270</div>
+                </li>
+                <li class="publication-item">
+                    <div class="publication-title">Multi-target QSAR modeling for the identification of dual ACE2/AT1R antagonists</div>
+                    <div class="publication-authors">[Your Name], Researcher E, Collaborator F</div>
+                    <div class="publication-details">Molecular Pharmaceutics, 2022, 19(11), 3985-3998</div>
+                </li>
+                <li class="publication-item">
+                    <div class="publication-title">Exploring the conformational landscape of viral proteases through enhanced sampling molecular dynamics</div>
+                    <div class="publication-authors">Researcher G, [Your Name], Collaborator H</div>
+                    <div class="publication-details">Journal of Chemical Theory and Computation, 2022, 18(6), 3829-3843</div>
+                </li>
+                <li class="publication-item">
+                    <div class="publication-title">Immunoinformatics approach for the design of a multi-epitope vaccine against emerging coronaviruses</div>
+                    <div class="publication-authors">[Your Name], Researcher I, Collaborator J</div>
+                    <div class="publication-details">Vaccine, 2021, 39(42), 6223-6234</div>
+                </li>
+            </ul>
+            
+            <div class="patent-section">
+                <h3>Patents</h3>
+                <ul class="publication-list">
+                    <li class="publication-item">
+                        <div class="publication-title">Novel heterocyclic compounds as dual ACE2/AT1R modulators and their therapeutic applications</div>
+                        <div class="publication-authors">[Your Name], Inventor A, Inventor B</div>
+                        <div class="publication-details">Indian Patent No. IN123456789A (2023)</div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-title">Pharmaceutical compositions comprising SARS-CoV-2 main protease inhibitors</div>
+                        <div class="publication-authors">[Your Name], Inventor C, Inventor D</div>
+                        <div class="publication-details">PCT International Application No. PCT/IB2022/123456 (2022)</div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-title">Computational method for predicting drug-induced cardiotoxicity using machine learning</div>
+                        <div class="publication-authors">Inventor E, [Your Name], Inventor F</div>
+                        <div class="publication-details">Indian Patent No. IN987654321A (2021)</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team / Lab Members -->
+    <section id="team">
+        <div class="container">
+            <h2>Research Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="[Link to Photo]" alt="Postdoctoral Researcher" class="member-photo">
+                    <div class="member-name">Dr. Researcher A</div>
+                    <div class="member-role">Postdoctoral Fellow</div>
+                    <p>Molecular dynamics simulations and free energy calculations</p>
+                </div>
+                <div class="team-member">
+                    <img src="[Link to Photo]" alt="PhD Student" class="member-photo">
+                    <div class="member-name">PhD Student B</div>
+                    <div class="member-role">Doctoral Candidate</div>
+                    <p>AI-driven de novo drug design and multi-target therapeutics</p>
+                </div>
+                <div class="team-member">
+                    <img src="[Link to Photo]" alt="PhD Student" class="member-photo">
+                    <div class="member-name">PhD Student C</div>
+                    <div class="member-role">Doctoral Candidate</div>
+                    <p>Immunoinformatics and computational vaccinology</p>
+                </div>
+                <div class="team-member">
+                    <img src="[Link to Photo]" alt="Masters Student" class="member-photo">
+                    <div class="member-name">MSc Student D</div>
+                    <div class="member-role">Masters Student</div>
+                    <p>QSAR modeling and cheminformatics</p>
+                </div>
+                <div class="team-member">
+                    <img src="[Link to Photo]" alt="Research Assistant" class="member-photo">
+                    <div class="member-name">Research Assistant E</div>
+                    <div class="member-role">Research Assistant</div>
+                    <p>Database management and computational infrastructure</p>
+                </div>
+                <div class="team-member">
+                    <img src="[Link to Photo]" alt="Undergraduate Student" class="member-photo">
+                    <div class="member-name">Undergraduate F</div>
+                    <div class="member-role">Undergraduate Researcher</div>
+                    <p>Virtual screening and molecular docking studies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <h2>Contact</h2>
+            <div class="contact-container">
+                <div>
+                    <div class="contact-info">
+                        <h3>Professor [Your Name]</h3>
+                        <p>Department of Pharmaceutical Sciences</p>
+                        <p>[University Name]</p>
+                        <p>[Building Name], Room [Room Number]</p>
+                        <p>[Street Address]</p>
+                        <p>[City, State, ZIP Code]</p>
+                    </div>
+                    <div class="contact-info">
+                        <p><strong>Email:</strong> <a href="mailto:your.email@university.edu">your.email@university.edu</a></p>
+                        <p><strong>Phone:</strong> +1 (123) 456-7890</p>
+                        <p><strong>Office Hours:</strong> Tuesdays & Thursdays, 2:00-4:00 PM or by appointment</p>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Lab Location</h3>
+                        <p>Computational Drug Design Laboratory</p>
+                        <p>[Building Name], Room [Lab Room Number]</p>
+                        <p>[University Name]</p>
+                    </div>
+                </div>
+                <div>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" id="name" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" id="subject" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" class="form-textarea" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -253,70 +727,39 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Dr. Karthi Shanmugam</h3>
-                    <p class="text-gray-400">Assistant Professor at SASTRA Deemed University, advancing computational drug discovery and cardioprotection through integrative research and teaching.</p>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">[Your Name]</div>
+                <p>Computational Drug Design Laboratory</p>
+                <p>Department of Pharmaceutical Sciences, [University Name]</p>
+                <div class="social-links">
+                    <a href="[Link]" class="social-link" aria-label="Google Scholar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/>
+                        </svg>
+                    </a>
+                    <a href="[Link]" class="social-link" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="[Link]" class="social-link" aria-label="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.016 10.016 0 01-3.127 1.184 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="[Link]" class="social-link" aria-label="ResearchGate">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16.283 15.586c-.636 0-1.152-.516-1.152-1.152s.516-1.152 1.152-1.152 1.152.516 1.152 1.152-.516 1.152-1.152 1.152zm-8.566 0c-.636 0-1.152-.516-1.152-1.152s.516-1.152 1.152-1.152 1.152.516 1.152 1.152-.516 1.152-1.152 1.152zm8.566-4.606c-.636 0-1.152-.516-1.152-1.152s.516-1.152 1.152-1.152 1.152.516 1.152 1.152-.516 1.152-1.152 1.152zm-8.566 0c-.636 0-1.152-.516-1.152-1.152s.516-1.152 1.152-1.152 1.152.516 1.152 1.152-.516 1.152-1.152 1.152zm8.566-4.606c-.636 0-1.152-.516-1.152-1.152s.516-1.152 1.152-1.152 1.152.516 1.152 1.152-.516 1.152-1.152 1.152zm-8.566 0c-.636 0-1.152-.516-1.152-1.152s.516-1.152 1.152-1.152 1.152.516 1.152 1.152-.516 1.152-1.152 1.152zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0z"/>
+                        </svg>
+                    </a>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="research.html" class="text-gray-400 hover:text-white transition">Research</a></li>
-                        <li><a href="teaching.html" class="text-gray-400 hover:text-white transition">Teaching</a></li>
-                        <li><a href="publications.html" class="text-gray-400 hover:text-white transition">Publications</a></li>
-                        <li><a href="patents.html" class="text-gray-400 hover:text-white transition">Patents</a></li>
-                    </ul>
+                <div class="copyright">
+                    &copy; 2023 [Your Name]. All Rights Reserved.
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center"><i data-feather="mail" class="mr-2 w-4 h-4"></i>karthi.shanmugam@sastra.edu</li>
-                        <li class="flex items-center"><i data-feather="map-pin" class="mr-2 w-4 h-4"></i>SASTRA Deemed University</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Connect</h3>
-                    <div class="flex space-x-4">
-                        <a href="https://www.linkedin.com/in/kshanmugam-phd/" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition"><i data-feather="linkedin"></i></a>
-                        <a href="https://twitter.com/karthibioinfo" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition"><i data-feather="twitter"></i></a>
-                        <a href="https://github.com/primalbioinformatics" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition"><i data-feather="github"></i></a>
-                        <a href="https://www.researchgate.net/profile/Karthi-Shanmugam" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition"><i data-feather="book"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 Dr. Karthi Shanmugam. All rights reserved.</p>
             </div>
         </div>
     </footer>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            particlesJS('particles-js', {
-                particles: { number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#3b82f6" }, shape: { type: "circle" }, opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                line_linked: { enable: true, distance: 150, color: "#3b82f6", opacity: 0.4, width: 1 },
-                move: { enable: true, speed: 3, random: true, out_mode: "out" } },
-                interactivity: { events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } } }
-            });
-        });
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu'); menu.classList.toggle('hidden');
-        });
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden'));
-        });
-        const cards = document.querySelectorAll('.card-hover');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; } });
-        }, { threshold: 0.1 });
-        cards.forEach(card => { card.style.opacity = '0'; card.style.transform = 'translateY(20px)'; card.style.transition = 'opacity 0.5s ease, transform 0.5s ease'; observer.observe(card); });
-        feather.replace();
-    </script>
 </body>
 </html>
